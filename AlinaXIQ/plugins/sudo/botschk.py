@@ -28,7 +28,7 @@ userbot = Userbot()
 
 BOT_LIST = ["IQJOBOT", "IQMCBOT", "IQDLBOT", "IQDNBOT", "IQIDBOT"]
 
-@app.on_message(filters.command(["botschk","چالاکی بۆت","بۆتەکانم","botchk"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@app.on_message(filters.command(["botschk","بۆتەکانم","botchk"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def bots_chk(_, message):
     msg = await message.reply_video(video="https://graph.org/file/126924df745817ea5e511.mp4", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
     response = "**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**\n\n"
