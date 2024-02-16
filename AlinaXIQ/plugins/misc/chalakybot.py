@@ -1,0 +1,55 @@
+import asyncio
+from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
+from dotenv import load_dotenv
+import config
+from strings.filters import command
+from AlinaXIQ.core.userbot import Userbot
+from AlinaXIQ import app
+from datetime import datetime
+
+# Assuming Userbot is defined elsewhere
+userbot = Userbot()
+
+last_checked_time = None
+
+@app.on_message(command(["/botcheck","پشکنینی بوت","چالاکی بوت","پشکنینی بۆت","چالاکی بۆت"]))
+async def check_bots_command(client, message):
+    global last_checked_time
+    try:
+        # Start the Pyrogram client
+        await userbot.one.start()
+
+        # Get current time before sending messages
+        start_time = datetime.now()
+
+        # Extract bot username from command
+        command_parts = message.command
+        if len(command_parts) == 2:
+            bot_username = command_parts[1]
+            response = ""  # Define response variable
+            try:
+                bot = await userbot.one.get_users(bot_username)
+                bot_id = bot.id
+                await asyncio.sleep(0.5)
+                await userbot.one.send_message(bot_id, "/start")
+                await asyncio.sleep(3)
+                # Check if bot responded to /start message
+                async for bot_message in userbot.one.get_chat_history(bot_id, limit=1):
+                    if bot_message.from_user.id == bot_id:
+                        response += f"**╭⎋ {bot.mention}\n l\n⇜ دۆخ: چالاك ✅**\n\n"
+                    else:
+                        response += f"**╭⎋ [{bot.mention}](tg://user?id={bot.id})\n l\n⇜ دۆخ: ناچالاك ❌**\n\n"
+            except Exception:
+                response += f"**╭⎋ {bot_username}\n l\n⇜ تۆ یوزەری بۆتی هەڵەت پێداوم تکایە دڵنیابەوە لەوەی کە یوزەرەکە ڕاستە**\n\n"
+            # Update last checked time
+            last_checked_time = start_time.strftime("%Y-%m-%d")
+            await message.reply_text(f"**{response}⏲️ کۆتا پشکنین: {last_checked_time} **")
+        else:
+            await message.reply_text("**⇜ فەرمانت هەڵە بەکارهێنا\n\n⇜ تکایە بەم شێوازە بیکە /botschk یوزەری بۆت**\n\n**⇜ نموونە :** `/botschk @IQM2BOT`")
+    except Exception as e:
+        await message.reply_text(f"**⇜ هەڵەیەك ڕوویدا: {e}**")
+        print(f"⇜ Error occurred during /botschk command: {e}**")
+    finally:
+        # Stop the Pyrogram client after sending messages
+        await userbot.one.stop()
