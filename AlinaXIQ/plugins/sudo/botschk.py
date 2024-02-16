@@ -30,7 +30,7 @@ BOT_LIST = ["IQJOBOT", "IQMCBOT", "IQDLBOT", "IQDNBOT", "IQIDBOT"]
 
 @app.on_message(filters.command(["botschk","چالاکی بۆت","بۆتەکانم","botchk"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def bots_chk(_, message):
-    msg = await message.reply_video(video="https://telegra.ph/file/4d303296e4fac9a40ea07.jpg", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
+    msg = await message.reply_video(video="https://graph.org/file/126924df745817ea5e511.mp4", caption="**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**")
     response = "**پشکنین بۆ بۆتەکانم چالاکن یان ناچالاك👾🚀!**\n\n"
     for bot_username in BOT_LIST:
         try:
