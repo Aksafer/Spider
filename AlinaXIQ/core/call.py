@@ -11,7 +11,7 @@ from pytgcalls.exceptions import (
     NoActiveGroupCall
 )
 from pytgcalls.types import Update
-from pytgcalls.types MediaStream
+from pytgcalls.types import MediaStream
 from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
 from pytgcalls.types.stream import StreamAudioEnded
 
