@@ -50,7 +50,7 @@ suggestion = {}
 mute = {}
 audio = {}
 video = {}
-
+vlimit = []
 # Total Queries on bot
 
 
@@ -676,8 +676,6 @@ async def add_served_chat(chat_id: int):
         return
     return await chatsdb.insert_one({"chat_id": chat_id})
 
-async def delete_served_chat(chat_id: int):
-    await chatsdb.delete_one({"chat_id": chat_id})
 
 async def blacklisted_chats() -> list:
     chats_list = []
@@ -915,12 +913,10 @@ async def cleanmode_on(chat_id: int):
 
 # Audio Video Limit
 
-from pytgcalls.types.input_stream.quality import (HighQualityAudio,
-                                                  HighQualityVideo,
-                                                  LowQualityAudio,
-                                                  LowQualityVideo,
-                                                  MediumQualityAudio,
-                                                  MediumQualityVideo)
+from pytgcalls.types import (
+    AudioQuality,
+    VideoQuality,
+)
 
 
 async def save_audio_bitrate(chat_id: int, bitrate: str):
@@ -934,7 +930,7 @@ async def save_video_bitrate(chat_id: int, bitrate: str):
 async def get_aud_bit_name(chat_id: int) -> str:
     mode = audio.get(chat_id)
     if not mode:
-        return "High"
+        return "HIGH"
     return mode
 
 
@@ -942,34 +938,42 @@ async def get_vid_bit_name(chat_id: int) -> str:
     mode = video.get(chat_id)
     if not mode:
         if PRIVATE_BOT_MODE == str(True):
-            return "High"
+            return "HD_720p"
         else:
-            return "Medium"
+            return "HD_720p"
     return mode
 
 
 async def get_audio_bitrate(chat_id: int) -> str:
     mode = audio.get(chat_id)
     if not mode:
-        return MediumQualityAudio()
-    if str(mode) == "High":
-        return HighQualityAudio()
-    elif str(mode) == "Medium":
-        return MediumQualityAudio()
-    elif str(mode) == "Low":
-        return LowQualityAudio()
+        return AudioQuality.STUDIO
+    if str(mode) == "STUDIO":
+        return AudioQuality.STUDIO
+    elif str(mode) == "HIGH":
+        return AudioQuality.HIGH
+    elif str(mode) == "MEDIUM":
+        return AudioQuality.MEDIUM
+    elif str(mode) == "LOW":
+        return AudioQuality.LOW
 
 
 async def get_video_bitrate(chat_id: int) -> str:
     mode = video.get(chat_id)
     if not mode:
         if PRIVATE_BOT_MODE == str(True):
-            return HighQualityVideo()
+            return VideoQuality.FHD_1080p
         else:
-            return MediumQualityVideo()
-    if str(mode) == "High":
-        return HighQualityVideo()
-    elif str(mode) == "Medium":
-        return MediumQualityVideo()
-    elif str(mode) == "Low":
-        return LowQualityVideo()
+            return VideoQuality.HD_720p
+    if str(mode) == "UHD_4K":
+        return VideoQuality.UHD_4K
+    elif str(mode) == "QHD_2K":
+        return VideoQuality.QHD_2K
+    elif str(mode) == "FHD_1080p":
+        return VideoQuality.FHD_1080p
+    elif str(mode) == "HD_720p":
+        return VideoQuality.HD_720p
+    elif str(mode) == "SD_480p":
+        return VideoQuality.SD_480p
+    elif str(mode) == "SD_360p":
+        return VideoQuality.SD_360p
