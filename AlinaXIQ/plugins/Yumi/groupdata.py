@@ -6,9 +6,10 @@ from pyrogram import enums, filters
 from strings.filters import command
 from AlinaXIQ import app
 
-@app.on_message(~filters.private & command(["/gdata","داتای گرووپ","gdata"]), group=2)
+@app.on_message(~filters.private & command(["/gdata","داتای گرووپ","gdata","پشکنینی گرووپ"]), group=2)
 async def instatus(app, message):
     start_time = time.perf_counter()
+    chat_idd = message.chat.id
     user = await app.get_chat_member(message.chat.id, message.from_user.id)
     count = await app.get_chat_members_count(message.chat.id)
     if user.status in (
@@ -35,7 +36,8 @@ async def instatus(app, message):
                 uncached += 1
         end_time = time.perf_counter()
         timelog = "{:.2f}".format(end_time - start_time)
-        await sent_message.edit(f"""
+        photo = await app.download_media(message.chat.photo.big_file_id)
+        await sent_photo.edit(photo=photo, caption=f"""
 **➖➖➖➖➖➖➖
 ➲ ناو : {message.chat.title} ✅
 ➲ ئەندام : [ {count} ]🫂
