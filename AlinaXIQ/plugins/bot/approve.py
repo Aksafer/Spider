@@ -2,7 +2,6 @@ from AlinaXIQ import app
 from os import environ
 from config import BOT_USERNAME
 import config
-import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest, InlineKeyboardButton, InlineKeyboardMarkup
 from PIL import Image, ImageDraw, ImageFont
@@ -109,14 +108,9 @@ async def autoapprove(client: app, m, message: ChatJoinRequest):
                 [
                     [
                         InlineKeyboardButton(
-                            " ๏ زیادم بکە بۆ گرووپت๏ ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                            "๏ زیادم بکە بۆ گرووپت ๏", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
+                    ],[
+                        InlineKeyboardButton(
+                            "𝖠𝗅𝗂𝗇𝖺", url=f"https://t.me/MGIMT")],
                 ])
         )
-
-        # Schedule a task to delete the message after 30 seconds
-        async def delete_message():
-            await asyncio.sleep(60)
-            await m.delete()
-
-        # Run the task
-        asyncio.create_task(delete_message())
