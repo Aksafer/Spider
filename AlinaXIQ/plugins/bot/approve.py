@@ -16,14 +16,13 @@ resize_text = (
     else text.upper()
 )
 
-
 # --------------------------------------------------------------------------------- #
 
 async def get_userinfo_img(
-        bg_path: str,
-        font_path: str,
-        user_id: Union[int, str],
-        profile_path: Optional[str] = None
+    bg_path: str,
+    font_path: str,
+    user_id: Union[int, str],    
+    profile_path: Optional[str] = None
 ):
     bg = Image.open(bg_path)
 
@@ -51,7 +50,6 @@ async def get_userinfo_img(
     bg.save(path)
     return path
 
-
 # --------------------------------------------------------------------------------- #
 
 bg_path = "AlinaXIQ/assets/userinfo.png"
@@ -63,22 +61,20 @@ font_path = "AlinaXIQ/assets/hiroko.ttf"
 chat_id_env = environ.get("CHAT_ID")
 CHAT_ID = [int(app) for app in chat_id_env.split(",")] if chat_id_env else []
 
-TEXT = environ.get("APPROVED_WELCOME_TEXT",
-                   "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ/کەناڵ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "**❅─────✧❅✦❅✧─────❅\n🥀 سڵاو {mention}**\n\n**🏓بەخربێی بۆ گرووپ/کەناڵ✨**\n\n**➻** {title}\n\n**💞 بە هیوای کاتێکی خۆش بەسەربەریت لێرە**\n**❅─────✧❅✦❅✧─────❅**")
 APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
 
 # List of random photo links
 random_photo_links = [
-    "https://telegra.ph/file/5acc9d863440ef8e95073.jpg",
-    "https://telegra.ph/file/67c764d7fbf2032c42a7b.jpg",
+    "https://telegra.ph/file/ca950c0b8316b968957fa.jpg",
+    "https://telegra.ph/file/ca950c0b8316b968957fa.jpg",
+    "https://telegra.ph/file/ca950c0b8316b968957fa.jpg",
     # Add more links as needed
 ]
 
-
 # Define an event handler for chat join requests
-@app.on_chat_join_request(
-    (filters.group | filters.channel) & filters.chat(CHAT_ID) if CHAT_ID else (filters.group | filters.channel))
-async def autoapprove(client: app, m, message: ChatJoinRequest):
+@app.on_chat_join_request((filters.group | filters.channel) & filters.chat(CHAT_ID) if CHAT_ID else (filters.group | filters.channel))
+async def autoapprove(client: app, message: ChatJoinRequest):
     chat = message.chat  # Chat
     user = message.from_user  # User
 
@@ -95,7 +91,7 @@ async def autoapprove(client: app, m, message: ChatJoinRequest):
         profile_path=photo,
     )
 
-    print(f"{user.first_name} جۆین بوو 🤝")  # Logs
+    print(f"{user.first_name} Joined 🤝")  # Logs
 
     await client.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
 
@@ -113,4 +109,4 @@ async def autoapprove(client: app, m, message: ChatJoinRequest):
                         InlineKeyboardButton(
                             "𝖠𝗅𝗂𝗇𝖺", url=f"https://t.me/MGIMT")],
                 ])
-        )
+    )
