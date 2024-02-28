@@ -82,7 +82,7 @@ def circle(pfp, size=(500, 500), brightness_factor=10):
     return pfp
 
 def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
-    background = Image.open("AlinaXIQ/plugins/assets/wel2.png")
+    background = Image.open("AlinaXIQ/assets/wel2.png")
     pfp = Image.open(pic).convert("RGBA")
     pfp = circle(pfp, brightness_factor=brightness_factor) 
     pfp = pfp.resize((825, 824))
@@ -96,9 +96,9 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     return f"downloads/welcome#{id}.png"
 
 
-@app.on_message(filters.command("welcome") & ~filters.private)
+@app.on_message(filters.command(["wel", "welcome"]) & ~filters.private)
 async def auto_state(_, message):
-    usage = "**ᴜsᴀɢᴇ:**\n**⦿ /welcome [on|off]**"
+    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -109,27 +109,27 @@ async def auto_state(_, message):
     ):
         A = await wlcm.find_one(chat_id)
         state = message.text.split(None, 1)[1].strip().lower()
-        if state == "off":
+        if state == "on":
             if A:
-                await message.reply_text("**ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ !**")
-            else:
+                return await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
+            elif not A:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**ᴅɪsᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ** {message.chat.title}")
-        elif state == "on":
+                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
+        elif state == "off":
             if not A:
-                await message.reply_text("**ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ.**")
-            else:
+                return await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
+            elif A:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**ᴇɴᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ ** {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("**sᴏʀʀʏ ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ!**")
+        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
 
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, member: ChatMemberUpdated):
+async def greet_new_member(_, message, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
@@ -156,25 +156,30 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             welcomeimg = welcomepic(
                 pic, user.first_name, member.chat.title, user.id, user.username
             )
-            button_text = "๏ ᴠɪᴇᴡ ɴᴇᴡ ᴍᴇᴍʙᴇʀ ๏"
-            add_button_text = "๏ ᴋɪᴅɴᴀᴘ ᴍᴇ ๏"
+            button_text = "๏ ئەندامی نوێ ๏"
+            add_button_text = "๏ زیادم بکە کەناڵت ๏"
             deep_link = f"tg://openmessage?user_id={user.id}"
-            add_link = f"https://t.me/{app.username}?startgroup=true"
+            add_link = f"https://t.me/{app.username}?startchannel=true"
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""
-**❅────✦ ᴡᴇʟᴄᴏᴍᴇ ✦────❅**
-
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-**➻ ɴᴀᴍᴇ »** {user.mention}
-**➻ ɪᴅ »** `{user.id}`
-**➻ ᴜ_ɴᴀᴍᴇ »** @{user.username}
-**➻ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs »** {count}
-▰▰▰▰▰▰▰▰▰▰▰▰▰
-
-**❅─────✧❅✦❅✧─────❅**
-""",
+                caption=f"""**
+┏━━━━━━━━━━━━━━━♡
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗡𝗮𝗺𝗲 ➪ {message.chat.title}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗨𝘀𝗲𝗿 ➪ @{username}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗜𝗗 ➪** `{message.chat.id}`
+**┠ 𝗡𝗮𝗺𝗲  ➪ {user.mention}
+┠ 𝗨𝘀𝗲𝗿 ➪ @{user.username}
+┠ 𝗨𝘀𝗲𝗿 𝗜𝗗 ➪** `{user.id}`
+**┠ 𝗠𝗲𝗺𝗯𝗲𝗿𝘀 ➪ {count}
+┗━━━━━━━━━━━━━━━♡
+╔═════ ▓▓ ࿇ ▓▓ ════╗
+[💠   𝗪𝗘𝗟𝗖𝗢𝗠𝗘  💠](https://t.me/mgimt)
+╚═════ ▓▓ ࿇ ▓▓ ════╝
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+➪ {app.mention} 𝗕𝗲𝘀𝘁 𝗕𝗼𝘁 𝗙𝗼𝗿 𝗞𝘂𝗿𝗱
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
