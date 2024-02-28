@@ -131,7 +131,8 @@ async def auto_state(_, message):
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_new_member(_, message: Message, member: ChatMemberUpdated):
     chat_id = member.chat.id
-    chat = message.chat
+    title = message.chat.title
+    username = f"@{message.chat.username}" if message.chat.username else "𝗣𝗿𝗶𝘃𝗮𝘁𝗲 𝗚𝗿𝗼𝘂𝗽"
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
     if A:
@@ -166,9 +167,9 @@ async def greet_new_member(_, message: Message, member: ChatMemberUpdated):
                 photo=welcomeimg,
                 caption=f"""**
 ┏━━━━━━━━━━━━━━━♡
-┠ 𝗚𝗿𝗼𝘂𝗽 𝗡𝗮𝗺𝗲 ➪ {message.chat.title}
-┠ 𝗚𝗿𝗼𝘂𝗽 𝗨𝘀𝗲𝗿 ➪ @{username}
-┠ 𝗚𝗿𝗼𝘂𝗽 𝗜𝗗 ➪** `{message.chat.id}`
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗡𝗮𝗺𝗲 ➪ {title}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗨𝘀𝗲𝗿 ➪ {username}
+┠ 𝗚𝗿𝗼𝘂𝗽 𝗜𝗗 ➪** `{chat_id}`
 **┠ 𝗡𝗮𝗺𝗲  ➪ {user.mention}
 ┠ 𝗨𝘀𝗲𝗿 ➪ @{user.username}
 ┠ 𝗨𝘀𝗲𝗿 𝗜𝗗 ➪** `{user.id}`
