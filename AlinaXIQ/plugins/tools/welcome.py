@@ -177,9 +177,6 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
 ╔═════ ▓▓ ࿇ ▓▓ ════╗
 [💠   𝗪𝗘𝗟𝗖𝗢𝗠𝗘  💠](https://t.me/mgimt)
 ╚═════ ▓▓ ࿇ ▓▓ ════╝
-▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-➪ {app.mention} 𝗕𝗲𝘀𝘁 𝗕𝗼𝘁 𝗙𝗼𝗿 𝗞𝘂𝗿𝗱
-▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 **""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
