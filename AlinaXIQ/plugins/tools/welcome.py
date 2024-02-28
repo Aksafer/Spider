@@ -1,4 +1,5 @@
 from AlinaXIQ import app
+from pyrogram import filters
 from pyrogram.errors import RPCError
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from os import environ
@@ -6,7 +7,6 @@ from typing import Union, Optional
 from PIL import Image, ImageDraw, ImageFont
 from os import environ
 import random
-import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest, InlineKeyboardButton, InlineKeyboardMarkup
 from PIL import Image, ImageDraw, ImageFont
@@ -16,8 +16,11 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from asyncio import sleep
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
+from pyrogram import *
+from pyrogram.types import *
 from logging import getLogger
 from AlinaXIQ.utils.alina_ban import admin_filter
+import os
 from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
@@ -82,27 +85,20 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     background = Image.open("AlinaXIQ/assets/wel2.png")
     pfp = Image.open(pic).convert("RGBA")
     pfp = circle(pfp, brightness_factor=brightness_factor) 
-    pfp = pfp.resize((575, 575))
+    pfp = pfp.resize((825, 824))
     draw = ImageDraw.Draw(background)
-    font = ImageFont.truetype('AlinaXIQ/assets/font.ttf', size=70)
-    welcome_font = ImageFont.truetype('AlinaXIQ/assets/font.ttf', size=61)
-    #draw.text((630, 540), f'ID: {id}', fill=(255, 255, 255), font=font)
-    #
- #   draw.text((630, 300), f'NAME: {user}', fill=(255, 255, 255), font=font)
-    draw.text((630, 450), f'ID: {id}', fill=(255, 255, 255), font=font)
-#    draw.text((630, 150), f"{chatname}", fill=(225, 225, 225), font=welcome_font)
-  #  draw.text((630, 230), f"USERNAME : {uname}", fill=(255, 255, 255), font=font)
-
-    #
-    pfp_position = (48, 88)
+    font = ImageFont.truetype('AlinaXIQ/assets/font.ttf', size=110)
+    welcome_font = ImageFont.truetype('AlinaXIQ/assets/font.ttf', size=60)
+    draw.text((2100, 1420), f'ID: {id}', fill=(12000, 12000, 12000), font=font)
+    pfp_position = (1990, 435)
     background.paste(pfp, pfp_position, pfp)
     background.save(f"downloads/welcome#{id}.png")
     return f"downloads/welcome#{id}.png"
 
 
-@app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
+@app.on_message(filters.command("welcome") & ~filters.private)
 async def auto_state(_, message):
-    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
+    usage = "**ᴜsᴀɢᴇ:**\n**⦿ /welcome [on|off]**"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -115,24 +111,25 @@ async def auto_state(_, message):
         state = message.text.split(None, 1)[1].strip().lower()
         if state == "off":
             if A:
-                await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
+                await message.reply_text("**ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ !**")
             else:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
+                await message.reply_text(f"**ᴅɪsᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ** {message.chat.title}")
         elif state == "on":
             if not A:
-                await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
+                await message.reply_text("**ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ.**")
             else:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
+                await message.reply_text(f"**ᴇɴᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ ** {message.chat.title}")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
+        await message.reply("**sᴏʀʀʏ ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ!**")
+
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, message, member: ChatMemberUpdated):
+async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
@@ -142,7 +139,7 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     
     # Add the modified condition here
-    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "restricted":
+    if member.new_chat_member and not member.old_chat_member:
     
         try:
             pic = await app.download_media(
@@ -162,34 +159,26 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
             button_text = "๏ ئەندامی نوێ ๏"
             add_button_text = "⦿ زیادم بکە بۆ کەناڵت ⦿"
             deep_link = f"tg://openmessage?user_id={user.id}"
-            add_link = f"https://t.me/{app.username}?startchannel=true"
+            add_link = f"https://t.me/{app.username}?startgroup=true"
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
                 caption=f"""
-**❅────✦ 𝖶𝖾𝗅𝖼𝗈𝗆𝖾 ✦────❅
+**❅────✦ ᴡᴇʟᴄᴏᴍᴇ ✦────❅**
 
 ▰▰▰▰▰▰▰▰▰▰▰▰▰
-➻ 𝖭𝖺𝗆𝖾 » {user.mention} **
-**➻ 𝖨𝖣 »** `{user.id}`
-**➻ 𝖴𝗌𝖾𝗋𝗇𝖺𝗆𝖾 » @{user.username}
-➻ 𝖳𝗈𝗍𝖺𝗅 𝖬𝖾𝗆𝖻𝖾𝗋 » {count}
+**➻ ɴᴀᴍᴇ »** {user.mention}
+**➻ ɪᴅ »** `{user.id}`
+**➻ ᴜ_ɴᴀᴍᴇ »** @{user.username}
+**➻ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs »** {count}
 ▰▰▰▰▰▰▰▰▰▰▰▰▰
 
-❅─────✧❅✦❅✧─────❅**
+**❅─────✧❅✦❅✧─────❅**
 """,
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
                 ])
             )
-            # Schedule a task to delete the message after 30 seconds
-            async def delete_message():
-                await asyncio.sleep(300)
-                await message.delete()
-
-            # Run the task
-            asyncio.create_task(delete_message())
-            
         except Exception as e:
             LOGGER.error(e)
