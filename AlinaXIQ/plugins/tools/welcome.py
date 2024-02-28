@@ -129,7 +129,7 @@ async def auto_state(_, message):
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, message, member: ChatMemberUpdated):
+async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     chat = message.chat
     count = await app.get_chat_members_count(chat_id)
@@ -140,7 +140,7 @@ async def greet_new_member(_, message, member: ChatMemberUpdated):
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     
     # Add the modified condition here
-    if member.new_chat_member and not member.old_chat_member:
+    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
     
         try:
             pic = await app.download_media(
