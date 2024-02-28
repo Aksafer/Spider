@@ -96,9 +96,9 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
     return f"downloads/welcome#{id}.png"
 
 
-@app.on_message(filters.command("welcome") & ~filters.private)
+@app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
 async def auto_state(_, message):
-    usage = "**ᴜsᴀɢᴇ:**\n**⦿ /welcome [on|off]**"
+    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -111,20 +111,20 @@ async def auto_state(_, message):
         state = message.text.split(None, 1)[1].strip().lower()
         if state == "off":
             if A:
-                await message.reply_text("**ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴀʟʀᴇᴀᴅʏ ᴅɪsᴀʙʟᴇᴅ !**")
+                await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
             else:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**ᴅɪsᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ** {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
         elif state == "on":
             if not A:
-                await message.reply_text("**ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ.**")
+                await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
             else:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**ᴇɴᴀʙʟᴇᴅ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ɪɴ ** {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("**sᴏʀʀʏ ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴇɴᴀʙʟᴇ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ!**")
+        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
 
 
 
@@ -141,7 +141,7 @@ async def greet_new_member(_, message: Message, member: ChatMemberUpdated):
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     
     # Add the modified condition here
-    if member.new_chat_member and not member.old_chat_member and member.new_chat_member.status != "kicked":
+    if member.new_chat_member and not member.old_chat_member:
     
         try:
             pic = await app.download_media(
