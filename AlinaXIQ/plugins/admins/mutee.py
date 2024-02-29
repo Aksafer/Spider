@@ -117,11 +117,11 @@ async def unmute_all(client, message):
     successful_count = count - failed_count
 
     if successful_count > 0:
-        await message.reply_text(f"مسحت {successful_count} من المكتومين\n༄")
+        await message.reply_text(f"**لادران {successful_count} میوتکراوەکان ༄**")
     else:
-        await message.reply_text("↢ لا يوجد مستخدمين مكتومين ليتم مسحهم\n༄")
+        await message.reply_text("**هیچ بەکارهێنەرێکی میوت کراو نییە ༄**")
 
     if failed_count > 0:
-        await message.reply_text(f"↢ فشل في مسح {failed_count}\nمن المكتومين\n༄")
+        await message.reply_text(f"**شکستی هێنا لە لادانی {failed_count}\nمیوتکراوەکان ༄**")
    else:
         await message.reply_text(f"**ئەم فەرمانە بۆ تۆ نییە ༄**")
