@@ -2,8 +2,8 @@ import asyncio
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.core.userbot import Userbot
 from pyrogram import Client, filters
-from strings.filters import command
 from pyrogram.errors import UserAlreadyParticipant
+from AlinaXIQ import app
 import asyncio
 import random
 from pyrogram import Client, filters
@@ -103,8 +103,8 @@ async def join_group(client, message):
             except Exception as e:
                 await done.edit_text(f"**✅┋➻  من یاریدەدەرەکەم دۆزیەوە و وە باندکراوە لە گرووپ بەڵام من ڕۆڵی لادانی باندم نییە بۆیە دەبێت ڕۆڵی باند کردنم پێبدەیت دواتر دووبارە بنووسیت : /userbotjoin \n\n➥ ئایدی » @{userbot.username} **")
         return
-        
-        
+
+
 @app.on_message(command(["/userbotleave", "دەرکردنی یاریدەدەر", "/assleft"]) & ~filters.private & admin_filter)
 async def leave_one(client, message):
     try:
@@ -122,7 +122,7 @@ async def leave_all(client, message):
 
     left = 0
     failed = 0
-    lol = await message.reply("✅┋ ئەکاونتی یاریدەدەری بۆت لێفت دەکات لە هەموو گرووپەکان")
+    lol = await message.reply("**✅┋ ئەکاونتی یاریدەدەری بۆت لێفت دەکات لە هەموو گرووپەکان**")
     try:
         userbot = await get_assistant(message.chat.id)
         async for dialog in userbot.one.get_dialogs():
@@ -137,7 +137,7 @@ async def leave_all(client, message):
             except BaseException:
                 failed += 1
                 await lol.edit(
-                    f"**✅┋ لێفت دەکات . .\n\n✅┋ لێفت دەکات لە : {left} گرووپ\n❌┋ شکستی هێنا لە : {failed} گرووپ**"
+                    f"**✅┋ لێفت دەکات . .\n\n✅┋ لێفتی کرد لە : {left} گرووپ\n❌┋ شکستی هێنا لە : {failed} گرووپ**"
                 )
             await asyncio.sleep(3)
     finally:
