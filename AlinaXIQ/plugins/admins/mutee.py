@@ -8,6 +8,7 @@ from pyrogram.types import (InlineKeyboardButton, ChatPermissions, InlineKeyboar
 from pyrogram import Client, filters
 from AlinaXIQ import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
 from typing import Union
+from AlinaXIQ.utils.extraction import extract_user
 import sys
 import os
 from pyrogram.types import ChatPermissions, ChatPrivileges
