@@ -7,10 +7,7 @@ from pyrogram import enums
 from pyrogram.types import (InlineKeyboardButton, ChatPermissions, InlineKeyboardMarkup, Message, User)
 from pyrogram import Client, filters
 from AlinaXIQ import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
-from typing import Union
-from AlinaXIQ.utils.extraction import extract_user
 import sys
-import os
 from pyrogram.types import ChatPermissions, ChatPrivileges
 from pyrogram.errors import PeerIdInvalid
 from os import getenv
@@ -44,9 +41,8 @@ async def mute_user(client, message):
     usr = await client.get_chat(message.from_user.id)
     name = usr.first_name
     get = await client.get_chat_member(message.chat.id, message.from_user.id)
-    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR] or message.from_user.id in SUDOERS:
-        user = await extract_user(message)
-        if user.id in SUDOERS:
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR] or message.from_user.id in SUDOERS:    
+        if message.reply_to_message.from_user.id == 833360381:
             await app.send_message(message.chat.id, "**من ناتوانم گەشەپێدەر میوت بکەم بەجدیتە؟😂🙂**")
         else: 
          if message.reply_to_message:
