@@ -118,7 +118,7 @@ async def unmute_all(client, message):
     successful_count = count - failed_count
 
     if successful_count > 0:
-        await message.reply_text(f"**لادران {successful_count} میوتکراوەکان ༄**")
+        await message.reply_text(f"**{successful_count} لادران میوتکراوەکان ༄**")
     else:
         await message.reply_text("**هیچ بەکارهێنەرێکی میوت کراو نییە ༄**")
 
