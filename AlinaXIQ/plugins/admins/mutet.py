@@ -10,6 +10,7 @@ from pyrogram.types import (InlineKeyboardButton, ChatPermissions, InlineKeyboar
 from pyrogram import Client, filters
 import sys
 import os
+from strings.filters import command
 from pyrogram.types import ChatPermissions, ChatPrivileges
 from pyrogram.errors import PeerIdInvalid
 from AlinaXIQ import app
@@ -35,7 +36,7 @@ mute_permission = ChatPermissions(
 )
 
 muted_users = []
-@app.on_message(filters.command(["ئاگاداری","میوت"], ""), & filters.group)
+@app.on_message(command(["ئاگاداری","میوت" "/mute"]) & filters.group)
 async def mute_user(client, message):
     global muted_users    
     chat_member = await client.get_chat_member(message.chat.id, message.from_user.id)
@@ -57,7 +58,7 @@ async def mute_user(client, message):
         await message.reply_text(f"**ئەم فەرمانە بۆ تۆ نییە ༄**")
 
 
-@app.on_message(filters.command(["لادانی میوت","لادانی ئاگاداری"], & filters.group)
+@app.on_message(command(["لادانی میوت","لادانی ئاگاداری"]) & filters.group)
 async def unmute_user(client, message):
    global muted_users
    get = await client.get_chat_member(message.chat.id, message.from_user.id)
@@ -77,7 +78,7 @@ async def handle_message(client, message):
     if message.from_user and message.from_user.id in muted_users:
         await client.delete_messages(chat_id=message.chat.id, message_ids=message.id)
 
-@app.on_message(filters.command(["میوتکراوەکان"], ""), & filters.group)
+@app.on_message(command(["میوتکراوەکان","mutes"]) & filters.group)
 async def get_rmuted_users(client, message):
     global muted_users
     usr = await client.get_chat(message.from_user.id)
@@ -95,7 +96,7 @@ async def get_rmuted_users(client, message):
 
 
 
-@app.on_message(filters.command(["سڕینەوەی میوتکراوەکان"], & filters.group)
+@app.on_message(command(["سڕینەوەی میوتکراوەکان","cmutes"]) & filters.group)
 async def unmute_all(client, message):
    usr = await client.get_chat(message.from_user.id)
    name = usr.first_name
