@@ -1,6 +1,7 @@
 from pyrogram import filters, Client
 from AlinaXIQ import app
 import asyncio
+from strings.filters import command
 from AlinaXIQ.misc import SUDOERS
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
@@ -8,7 +9,7 @@ from AlinaXIQ.core.call import Alina
 from AlinaXIQ.utils.database import *
 from pytgcalls.exceptions import NoActiveGroupCall, TelegramServerError
 
-@app.on_message(filters.regex(["گۆڕینی ناوی یاریدەدەر"،"/nameassistant"]) SUDOERS)
+@app.on_message(command(["گۆڕینی ناوی یاریدەدەر","/nameassistant"]) & SUDOERS)
 async def tom_name(client, message):
     assistant = await group_assistant(Alina, message.chat.id)
     await message.reply("**🧑🏻‍💻┋ ناوی نوێی یاریدەدەر بنێرە**")
