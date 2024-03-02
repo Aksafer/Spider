@@ -20,7 +20,7 @@ subscribed = filters.create(subscription)
 
 
 @app.on_message(~subscribed)
-async def checker(_: Client, message: Message):
+async def checker(_, __: Client, message: Message):
     if message.chat.type in [ChatType.GROUP, ChatType.SUPERGROUP]: await message.delete()
     sender = await app.get_chat_member(message.chat.id, message.from_user.id)
     user = message.from_user.mentoin
