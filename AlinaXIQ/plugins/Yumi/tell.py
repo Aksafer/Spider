@@ -11,6 +11,7 @@ from AlinaXIQ.utils.database import *
 from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant, ChatAdminRequired
 from AlinaXIQ import app , Userbot
+from AlinaXIQ.utils.alina_ban import admin_filter
 
 async def get_group_call(
     client: Client, message: Message, err_msg: str = ""
@@ -31,7 +32,7 @@ async def get_group_call(
     await app.send_message(f"**هیچ تێلێك لە گرووپ نەکراوەتەوە** {err_msg}")
     return False
 
-@app.on_message(filters.regex("^کردنەوەی تێل$"))
+@app.on_message(command(["/open", "کردنەوەی تێل", "کردنەوەی تیل"]) & admin_filter & ~filters.private)
 async def start_group_call(c: Client, m: Message):
     chat_id = m.chat.id
     assistant = await get_assistant(chat_id)
@@ -86,7 +87,8 @@ async def start_group_call(c: Client, m: Message):
         await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل کرایەوە♥️⚡️•**")
       except:
          await msg.edit_text("•⎆┊**با بۆتەکە ڕۆڵی ئەوەی هەبێت کە ئەدمین زیاد بکات و کۆنترۆڵی تێل بکات یان ڕێگە بە یاریدەدەرەکە بدات و هەوڵ بدات🕷•**")
-@app.on_message(filters.regex("^داخستنی تێل$"))
+        
+@app.on_message(command(["/close", "داخستنی تێل", "داخستنی تیل"]) & admin_filter & ~filters.private)
 async def stop_group_call(c: Client, m: Message):
     chat_id = m.chat.id
     assistant = await get_assistant(chat_id)
