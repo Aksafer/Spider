@@ -10,7 +10,7 @@ from pytgcalls.exceptions import NoActiveGroupCall, TelegramServerError
 
 @app.on_message(filters.regex(["گۆڕینی ناوی یاریدەدەر"،"/nameassistant"]) SUDOERS)
 async def tom_name(client, message):
-    assistant = await group_assistant(Anon, message.chat.id)
+    assistant = await group_assistant(Alina, message.chat.id)
     await message.reply("**🧑🏻‍💻┋ ناوی نوێی یاریدەدەر بنێرە**")
     try:
         new_name = await client.ask(message.chat.id, "**🧑🏻‍💻┋ ناوی نوێی یاریدەدەر بنووسە**")
