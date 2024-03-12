@@ -25,7 +25,6 @@ async def stop_music(cli, message: Message, _, chat_id):
 @app.on_message(
     command(["stop", "end", "cstop", "cend", "/end", "/stop", "/cend", "/cstop"]) & filters.channel)
 @app.on_message(command(["وەستان","ڕاگرتن","راگرتن"]) & filters.channel)
-@AdminRightsCheck
 async def stop_musiccc(cli, message: Message, _, chat_id):
     if not len(message.command) == 1:
         return
