@@ -15,6 +15,7 @@ from config import BANNED_USERS
 )
 @AdminRightsCheck
 async def admins(Client, message: Message, _, chat_id):
+    user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
     check = db.get(chat_id)
     if not check:
         return await message.reply_text(_["queue_2"])
