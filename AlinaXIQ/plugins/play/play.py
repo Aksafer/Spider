@@ -85,8 +85,8 @@ async def play_commnd(
     slider = None
     plist_type = None
     spotify = None
-    user_id = message.from_user.id if message.from_user else "033365581"
-    user_mention = message.from_user.mention if message.from_user else "None"
+    user_id = message.from_user.id if message.from_user else "1121532100"
+    user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
 
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
@@ -239,6 +239,7 @@ async def play_commnd(
                     details["duration_min"],
                                   )
         elif await Spotify.valid(url):
+            user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
                 return await mystic.edit_text(
