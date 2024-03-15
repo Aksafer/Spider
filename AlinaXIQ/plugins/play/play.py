@@ -86,8 +86,8 @@ async def play_commnd(
     plist_type = None
     spotify = None
     user_id = message.from_user.id if message.from_user else "1121532100"
-    user_mention = message.from_user.mention if message.chat.title else "𝖠𝖽𝗆𝗂𝗇"
-
+    user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
+    
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
