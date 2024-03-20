@@ -112,7 +112,7 @@ async def auto_state(_, message):
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, message, member: ChatMemberUpdated):
+async def greet_new_member(_, member: ChatMemberUpdated):
     try:
         
         chat_id = member.chat.id
