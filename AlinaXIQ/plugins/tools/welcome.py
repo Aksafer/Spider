@@ -137,7 +137,7 @@ async def auto_state(_, message):
                 await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
             else:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
+                await message.reply_text(f"**بەخێرهاتن چالاککرا لە {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
@@ -173,31 +173,19 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             welcomeimg = welcomepic(
                 pic, user.first_name, member.chat.title, user.id, user.username
             )
-            button_text = "๏ ئەندامی نوێ ๏"
-            add_button_text = "๏ زیادم بکە کەناڵت ๏"
-            deep_link = f"tg://openmessage?user_id={user.id}"
-            add_link = f"https://t.me/{app.username}?startchannel=true"
+            button_text = "๏ زیادم بکە کەناڵت ๏"
+            add_button_text = "نوێکارییەکانی ئەلینا 🍻"
+            deep_link = f"https://t.me/{app.username}?startchannel=true"
+            add_link = f"https://t.me/MGIMT"
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""**
-┏━━━━━━━━━━━━━━━♡
-┠ 𝗡𝗮𝗺𝗲  ➪ {user.mention}
-┠ 𝗨𝘀𝗲𝗿 ➪ @{user.username}
-┠ 𝗨𝘀𝗲𝗿 𝗜𝗗 ➪** `{user.id}` **
-┠ 𝗠𝗲𝗺𝗯𝗲𝗿𝘀 ➪ {count}
-┗━━━━━━━━━━━━━━━♡
-╔═════ ▓▓ ࿇ ▓▓ ════╗
-                [💠   𝗪𝗘𝗟𝗖𝗢𝗠𝗘   💠](https://t.me/mgimt)
-╚═════ ▓▓ ࿇ ▓▓ ════╝
-▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-{app.mention} 𝗕𝗲𝘀𝘁 𝗕𝗼𝘁 𝗙𝗼𝗿 𝗞𝘂𝗿𝗱
-▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-**""",
+                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپی {message.chat.title}**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
                 ])
             )
+            await asyncio.sleep(120) 
         except Exception as e:
             LOGGER.error(e)
