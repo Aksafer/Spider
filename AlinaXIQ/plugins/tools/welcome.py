@@ -146,7 +146,7 @@ async def auto_state(_, message):
 
 
 @app.on_chat_member_updated(filters.group, group=-3)
-async def greet_new_member(_, member: ChatMemberUpdated, message):
+async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     count = await app.get_chat_members_count(chat_id)
     A = await wlcm.find_one(chat_id)
@@ -180,7 +180,7 @@ async def greet_new_member(_, member: ChatMemberUpdated, message):
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپی {message.chat.title}**""",
+                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n بۆ گرووپ 💎.**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
