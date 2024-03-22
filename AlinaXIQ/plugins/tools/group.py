@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from AlinaXIQ import app
+from AlinaXIQ.misc import SUDOERS
 from config import OWNER_ID
 from pyrogram.types import VideoChatEnded, Message
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
