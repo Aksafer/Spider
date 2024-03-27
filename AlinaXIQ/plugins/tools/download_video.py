@@ -47,7 +47,7 @@ async def download_video(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split("_")[0]  # Extract video ID from callback data
     user_id = CallbackQuery.from_user.id
-    user_name = CallbackQuery.from_user.mentoin
+    user_name = CallbackQuery.from_user.mention
     chutiya = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
 
     pablo = await client.send_message(CallbackQuery.message.chat.id, f"**● ꒐ دەگەڕێم بۆ {videoid} کەمێك چاوەڕێ بکە 🧑🏻‍💻**")
@@ -121,7 +121,7 @@ async def download_audio(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split("_")[1]  # Extract video ID from callback data
     user_id = CallbackQuery.from_user.id
-    user_name = CallbackQuery.from_user.mentoin
+    user_name = CallbackQuery.from_user.mention
     chutiya = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
 
     print(videoid)
