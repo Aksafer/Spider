@@ -13,7 +13,7 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from AlinaXIQ import YouTube
 from youtubesearchpython import VideosSearch
-from AlinaXIQ import app
+from VIPMUSIC import app
 import asyncio
 import os
 import time
@@ -37,40 +37,44 @@ from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 
+from AlinaXIQ.utils.extraction import extract_user
+
+
+import asyncio
+import os
+import requests
+import wget
+from pyrogram import filters
+from pyrogram.types import Message
+from yt_dlp import YoutubeDL
+
 from AlinaXIQ import app
 from AlinaXIQ.utils.extraction import extract_user
 
 BANNED_USERS = []
 
-@app.on_callback_query(filters.regex("download_video") & ~filters.user(BANNED_USERS))
-async def download_video(client, CallbackQuery):
+@app.on_callback_query(filters.regex("downloadvideo") & ~filters.user(BANNED_USERS))
+async def downloadvideo(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
-    videoid = callback_data.split("_")[0]  # Extract video ID from callback data
-    user_id = CallbackQuery.from_user.id
-    user_name = CallbackQuery.from_user.mention
-    chutiya = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
-
-    pablo = await client.send_message(CallbackQuery.message.chat.id, f"**● ꒐ دەگەڕێم بۆ {videoid} کەمێك چاوەڕێ بکە 🧑🏻‍💻**")
+    videoid = callback_data.split()[1]  # Extract video ID from callback data
+    pablo = await client.send_message(CallbackQuery.message.chat.id, f"**● ꒐ دەگەڕێم بۆ {videoid}, کەمێك چاوەڕێ بکە 🧑🏻‍💻**")
+    
     if not videoid:
-        await pablo.edit(
-            "**● ꒐ گۆرانی نەدۆزرایەوە لە یوتوب\n● ꒐ ناوی گۆرانی هەڵە نووسراوە**"
-        )
+        await pablo.edit("**● ꒐ گۆرانی نەدۆزرایەوە لە یوتوب\n● ꒐ ناوی گۆرانی هەڵە نووسراوە**")
         return
-    # Rest of the function remains unchanged...
-
-
-    search = SearchVideos(f"https://youtube.com/{videoid}", offset=1, mode="dict", max_results=1)
+    
+    search = YouTube(f"https://youtube.com/{videoid}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi.get("search_result", [])
     if not mio:
         await pablo.edit("**● ꒐ گۆرانی نەدۆزرایەوە لە یوتوب 🧑🏻‍💻**")
         return
 
-    mo = mio[0].get("link", "")
-    thum = mio[0].get("title", "")
-    fridayz = mio[0].get("id", "")
-    thums = mio[0].get("channel", "")
-    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    mo = search.link
+    thum = search.title
+    fridayz = search.id
+    thums = search.channel
+    kekme = f"https://img.youtube.com/vi/{fridayz}/maxresdefault.jpg"
     await asyncio.sleep(0.6)
     url = mo
     sedlyf = wget.download(kekme)
@@ -91,7 +95,7 @@ async def download_video(client, CallbackQuery):
             ytdl_data = ytdl.extract_info(url, download=True)
 
     except Exception as e:
-        await pablo.edit(f"**● ꒐ شکستی هێنا\nهەڵە : **\n `{str(e)}`")
+        await pablo.edit(f"**● ꒐ شکستی هێنا\nهەڵە : **\n`{str(e)}`")
         return
 
     file_stark = f"{ytdl_data['id']}.mp4"
@@ -115,31 +119,25 @@ async def download_video(client, CallbackQuery):
         if files and os.path.exists(files):
             os.remove(files)
 
-
-@app.on_callback_query(filters.regex("download_audio") & ~filters.user(BANNED_USERS))
-async def download_audio(client, CallbackQuery):
+@app.on_callback_query(filters.regex("downloadaudio") & ~filters.user(BANNED_USERS))
+async def downloadaudio(client, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
-    videoid = callback_data.split("_")[1]  # Extract video ID from callback data
-    user_id = CallbackQuery.from_user.id
-    user_name = CallbackQuery.from_user.mention
-    chutiya = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
-
-    print(videoid)
-    m = await client.send_message(CallbackQuery.message.chat.id, f"**● ꒐ دەگەڕێم کەمێك چاوەڕێ بکە 🧑🏻‍💻**")
+    videoid = callback_data.split()[1]  # Extract video ID from callback data
+    m = await client.send_message(CallbackQuery.message.chat.id, f"**● ꒐ دەگەڕێم کەمێك چاوەڕێ بکە 🧑🏻‍💻 {videoid}**")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
     try:
-        results = YouTube.track(f"https://youtube.com/{videoid}", max_results=1).to_dict()
-        link = f"https://youtube.com{results[0]['url_suffix']}"
-        title = results[0]["title"][:40]
-        thumbnail = results[0]["thumbnails"][0]
+        results = YouTube(f"https://youtube.com/{videoid}")
+        link = f"https://youtube.com{videoid}"
+        title = results.title
+        thumbnail = results.thumbnails
         thumb_name = f"{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
 
         # Add these lines to define views and channel_name
-        views = results[0]["views"]
-        channel_name = results[0]["channel"]
+        views = results.views
+        channel_name = results.channel
 
     except Exception as e:
         await m.edit("**● ꒐ گۆرانی نەدۆزرایەوە لە یوتوب\n● ꒐ ناوی گۆرانی هەڵە نووسراوە**")
@@ -157,8 +155,9 @@ async def download_audio(client, CallbackQuery):
             secmul *= 60
         await m.edit("**📤 دایدەگرم . .**")
 
-        await message.reply_audio(
-            audio_file,
+        await client.send_audio(
+            CallbackQuery.message.chat.id,
+            audio=open(audio_file, "rb"),
             thumb=thumb_name,
             title=title,
             caption=f"**● ꒐ لەلایەن : {app.mention} **",
