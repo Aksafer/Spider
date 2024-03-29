@@ -13,7 +13,6 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from AlinaXIQ import YouTube
 from youtubesearchpython import VideosSearch
-from VIPMUSIC import app
 import asyncio
 import os
 import time
