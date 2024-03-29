@@ -280,10 +280,10 @@ def panel_markup_1(_, videoid, chat_id):
         [
             InlineKeyboardButton(
                 text= "🎸 𝖵𝗂𝖽𝖾𝗈",
-                callback_data=f"download_video {videoid}"),
+                callback_data=f"downloadvideo {videoid}"),
             InlineKeyboardButton(
                 text= "🎸 𝖠𝗎𝖽𝗂𝗈",
-                callback_data=f"download_audio {videoid}")
+                callback_data=f"downloadaudio {videoid}")
         ],
         [
             InlineKeyboardButton(
