@@ -1,3 +1,4 @@
+
 import time
 from time import time
 import asyncio
@@ -132,8 +133,12 @@ async def start_pm(client, message: Message, _):
             key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text=_["S_B_8"], url=link),
-                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
+                        InlineKeyboardButton(text= "🎸 𝖵𝗂𝖽𝖾𝗈", callback_data=f"downloadvideo {query}"),
+                        InlineKeyboardButton(text= "🎸 𝖠𝗎𝖽𝗂𝗈", callback_data=f"downloadaudio {query}"),
+                
+                    ],
+                    [
+                        InlineKeyboardButton(text="🎧 sᴇᴇ ᴏɴ ʏᴏᴜᴛᴜʙᴇ 🎧", url=link),
                     ],
                 ]
             )
