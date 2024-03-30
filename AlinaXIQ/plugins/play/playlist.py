@@ -23,6 +23,7 @@ from AlinaXIQ.utils.inline.playlist import (botplaylist_markup,
                                               warning_markup)
 from AlinaXIQ.utils.pastebin import AlinaBin
 import time
+import asyncio
 import yt_dlp
 from youtube_search import YoutubeSearch
 from youtubesearchpython import VideosSearch
@@ -30,7 +31,16 @@ from youtubesearchpython import SearchVideos
 
 from AlinaXIQ.utils.stream.stream import stream
 from typing import Dict, List, Union
+from time import time
+import asyncio
+from AlinaXIQ.utils.extraction import extract_user
 
+# Define a dictionary to track the last message timestamp for each user
+user_last_message_time = {}
+user_command_count = {}
+# Define the threshold for command spamming (e.g., 20 commands within 60 seconds)
+SPAM_THRESHOLD = 2
+SPAM_WINDOW_SECONDS = 5
 from AlinaXIQ.core.mongo import mongodb
 
 
@@ -95,6 +105,26 @@ ADDPLAYLIST_COMMAND = ("addplaylist")
 @app.on_message(filters.command(["playlist","لیستی گۆرانی","لیستی گورانی","لیستی پەخشکردن"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & ~BANNED_USERS)
 @language
 async def check_playlist(client, message: Message, _):
+    user_id = message.from_user.id
+    current_time = time()
+    # Update the last message timestamp for the user
+    last_message_time = user_last_message_time.get(user_id, 0)
+
+    if current_time - last_message_time < SPAM_WINDOW_SECONDS:
+        # If less than the spam window time has passed since the last message
+        user_last_message_time[user_id] = current_time
+        user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
+        if user_command_count[user_id] > SPAM_THRESHOLD:
+            # Block the user if they exceed the threshold
+            hu = await message.reply_text(f"**{message.from_user.mention} ᴘʟᴇᴀsᴇ ᴅᴏɴᴛ ᴅᴏ sᴘᴀᴍ, ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ ᴀғᴛᴇʀ 5 sᴇᴄ**")
+            await asyncio.sleep(3)
+            await hu.delete()
+            return
+    else:
+        # If more than the spam window time has passed, reset the command count and update the message timestamp
+        user_command_count[user_id] = 1
+        user_last_message_time[user_id] = current_time
+
     _playlist = await get_playlist_names(message.from_user.id)
     if _playlist:
         get = await message.reply_text(_["playlist_2"])
@@ -154,6 +184,26 @@ async def get_keyboard(_, user_id):
 @app.on_message(filters.command(["delplaylist", "سڕینەوەی لیست","deleteplaylist"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & ~BANNED_USERS)
 @language
 async def del_plist_msg(client, message: Message, _):
+    user_id = message.from_user.id
+    current_time = time()
+    # Update the last message timestamp for the user
+    last_message_time = user_last_message_time.get(user_id, 0)
+
+    if current_time - last_message_time < SPAM_WINDOW_SECONDS:
+        # If less than the spam window time has passed since the last message
+        user_last_message_time[user_id] = current_time
+        user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
+        if user_command_count[user_id] > SPAM_THRESHOLD:
+            # Block the user if they exceed the threshold
+            hu = await message.reply_text(f"**{message.from_user.mention} ᴘʟᴇᴀsᴇ ᴅᴏɴᴛ ᴅᴏ sᴘᴀᴍ, ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ ᴀғᴛᴇʀ 5 sᴇᴄ**")
+            await asyncio.sleep(3)
+            await hu.delete()
+            return
+    else:
+        # If more than the spam window time has passed, reset the command count and update the message timestamp
+        user_command_count[user_id] = 1
+        user_last_message_time[user_id] = current_time
+
     _playlist = await get_playlist_names(message.from_user.id)
     if _playlist:
         get = await message.reply_text(_["playlist_2"])
@@ -181,7 +231,7 @@ async def play_playlist(client, CallbackQuery, _):
         except:
             return
     chat_id = CallbackQuery.message.chat.id
-    user_name = CallbackQuery.from_user.user_mention
+    user_name = CallbackQuery.from_user.first_name
     await CallbackQuery.message.delete()
     result = []
     try:
@@ -199,7 +249,7 @@ async def play_playlist(client, CallbackQuery, _):
             user_id,
             result,
             chat_id,
-            user_mention,
+            user_name,
             CallbackQuery.message.chat.id,
             video,
             streamtype="playlist",
@@ -217,6 +267,26 @@ async def play_playlist(client, CallbackQuery, _):
 @app.on_message(filters.command("playplaylist") & ~BANNED_USERS)
 @languageCB
 async def play_playlist_command(client, message, _):
+    user_id = message.from_user.id
+    current_time = time()
+    # Update the last message timestamp for the user
+    last_message_time = user_last_message_time.get(user_id, 0)
+
+    if current_time - last_message_time < SPAM_WINDOW_SECONDS:
+        # If less than the spam window time has passed since the last message
+        user_last_message_time[user_id] = current_time
+        user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
+        if user_command_count[user_id] > SPAM_THRESHOLD:
+            # Block the user if they exceed the threshold
+            hu = await message.reply_text(f"**{message.from_user.mention} ᴘʟᴇᴀsᴇ ᴅᴏɴᴛ ᴅᴏ sᴘᴀᴍ, ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ ᴀғᴛᴇʀ 5 sᴇᴄ**")
+            await asyncio.sleep(3)
+            await hu.delete()
+            return
+    else:
+        # If more than the spam window time has passed, reset the command count and update the message timestamp
+        user_command_count[user_id] = 1
+        user_last_message_time[user_id] = current_time
+
     mode = message.command[1] if len(message.command) > 1 else None
     user_id = message.from_user.id
     _playlist = await get_playlist_names(user_id)
@@ -231,7 +301,7 @@ async def play_playlist_command(client, message, _):
             return
     
     chat_id = message.chat.id
-    user_name = message.from_user.user_mention
+    user_name = message.from_user.first_name
     
     try:
         await message.delete()
@@ -253,7 +323,7 @@ async def play_playlist_command(client, message, _):
             user_id,
             result,
             chat_id,
-            user_mention,
+            user_name,
             message.chat.id,
             video,
             streamtype="playlist",
@@ -602,12 +672,13 @@ async def add_playlist(client, CallbackQuery, _):
     await CallbackQuery.answer("➻ ᴛᴏ ᴀᴅᴅ ᴀ sᴏɴɢ ɪɴ ʏᴏᴜʀ ᴘʟᴀʏʟɪsᴛ ᴊᴜsᴛ ᴛʏᴘᴇ /addplaylist (Here your song name)\n\n➥ ᴇxᴀᴍᴘʟᴇ » /addplaylist Blue Eyes Blue tyes.", show_alert=True)
     
 
-@app.on_callback_query(filters.regex("Alina_playlist") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("vip_playlist") & ~BANNED_USERS)
 @languageCB
-async def add_playlist(client, CallbackQuery, _):
+async def add_playlists(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
     videoid = callback_data.split(None, 1)[1]
     user_id = CallbackQuery.from_user.id
+    from AlinaXIQ import YouTube
     _check = await get_playlist(user_id, videoid)
     if _check:
         try:
