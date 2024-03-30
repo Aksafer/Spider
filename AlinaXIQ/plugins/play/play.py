@@ -1,13 +1,15 @@
 import random
 import string
 import asyncio
-from pyrogram import filters
+from strings.filters import command
+from pyrogram import client, filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
-from strings.filters import command
+from AlinaXIQ.utils.database import get_assistant
 import config
 from AlinaXIQ import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from AlinaXIQ.core.call import Alina
+from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.utils import seconds_to_min, time_to_seconds
 from AlinaXIQ.utils.channelplay import get_channeplayCB
 from AlinaXIQ.utils.decorators.language import languageCB
@@ -31,7 +33,15 @@ from AlinaXIQ.utils.database import (
 from AlinaXIQ.utils.logger import play_logs
 from AlinaXIQ.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
+from time import time
+from AlinaXIQ.utils.extraction import extract_user
 
+# Define a dictionary to track the last message timestamp for each user
+user_last_message_time = {}
+user_command_count = {}
+# Define the threshold for command spamming (e.g., 20 commands within 60 seconds)
+SPAM_THRESHOLD = 2
+SPAM_WINDOW_SECONDS = 5
 
 @app.on_message(
      command(
@@ -87,7 +97,7 @@ async def play_commnd(
     spotify = None
     user_id = message.from_user.id if message.from_user else "1121532100"
     user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
-    
+
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
@@ -99,7 +109,7 @@ async def play_commnd(
         else None
     )
     if audio_telegram:
-        if audio_telegram.file_size > 999999999999:
+        if audio_telegram.file_size > 999999999999999:
             return await mystic.edit_text(_["play_5"])
         duration_min = seconds_to_min(audio_telegram.duration)
         if (audio_telegram.duration) > config.DURATION_LIMIT:
@@ -133,7 +143,8 @@ async def play_commnd(
             except Exception as e:
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                print(e)
+                return await mystic.edit_text(e)
             return await mystic.delete()
         return
     elif video_telegram:
@@ -177,7 +188,8 @@ async def play_commnd(
             except Exception as e:
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                print(e)
+                return await mystic.edit_text(e)
             return await mystic.delete()
         return
     elif url:
@@ -239,7 +251,6 @@ async def play_commnd(
                     details["duration_min"],
                                   )
         elif await Spotify.valid(url):
-            user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
                 return await mystic.edit_text(
@@ -279,7 +290,7 @@ async def play_commnd(
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
-                cap = _["play_11"].format(message.from_user.user_mention)
+                cap = _["play_11"].format(message.from_user.mention)
             else:
                 return await mystic.edit_text(_["play_15"])
         elif await Apple.valid(url):
@@ -339,7 +350,8 @@ async def play_commnd(
             except Exception as e:
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                print(e)
+                return await mystic.edit_text(e)
             return await mystic.delete()
         else:
             try:
@@ -351,6 +363,7 @@ async def play_commnd(
                     text=_["play_17"],
                 )
             except Exception as e:
+                print(e)
                 return await mystic.edit_text(_["general_2"].format(type(e).__name__))
             await mystic.edit_text(_["str_2"])
             try:
@@ -360,7 +373,7 @@ async def play_commnd(
                     message.from_user.id,
                     url,
                     chat_id,
-                    message.from_user.user_mention,
+                    message.from_user.mention,
                     message.chat.id,
                     video=video,
                     streamtype="index",
@@ -369,7 +382,8 @@ async def play_commnd(
             except Exception as e:
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                print(e)
+                return await mystic.edit_text(e)
             return await play_logs(message, streamtype="M3u8 or Index Link")
     else:
         if len(message.command) < 2:
@@ -425,7 +439,8 @@ async def play_commnd(
         except Exception as e:
             ex_type = type(e).__name__
             err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-            return await mystic.edit_text(err)
+            print(e)
+            return await mystic.edit_text(e)
         await mystic.delete()
         return await play_logs(message, streamtype=streamtype)
     else:
@@ -502,7 +517,7 @@ async def play_music(client, CallbackQuery, _):
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_mention = CallbackQuery.from_user.user_mention
+    user_mention = CallbackQuery.from_user.mention
     try:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
@@ -552,9 +567,20 @@ async def play_music(client, CallbackQuery, _):
     except Exception as e:
         ex_type = type(e).__name__
         err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-        return await mystic.edit_text(err)
+        print(e)
+        return await mystic.edit_text(e)
     return await mystic.delete()
 
+
+@app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
+async def Alinamous_check(client, CallbackQuery):
+    try:
+        await CallbackQuery.answer(
+            "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
+            show_alert=True,
+        )
+    except:
+        pass
 
 
 @app.on_callback_query(filters.regex("AlinaPlaylists") & ~BANNED_USERS)
@@ -579,7 +605,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_mention = CallbackQuery.from_user.user_mention
+    user_mention = CallbackQuery.from_user.mention
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
@@ -640,7 +666,8 @@ async def play_playlists_command(client, CallbackQuery, _):
     except Exception as e:
         ex_type = type(e).__name__
         err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-        return await mystic.edit_text(err)
+        print(e)
+        return await mystic.edit_text(e)
     return await mystic.delete()
 
 
