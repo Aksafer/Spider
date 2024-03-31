@@ -126,7 +126,7 @@ async def play_commnd(
                     user_id,
                     details,
                     chat_id,
-                    user_mention,
+                    user_mentoin,
                     message.chat.id,
                     streamtype="telegram",
                     forceplay=fplay,
@@ -170,7 +170,7 @@ async def play_commnd(
                     user_id,
                     details,
                     chat_id,
-                    user_mention,
+                    user_mentoin,
                     message.chat.id,
                     video=True,
                     streamtype="telegram",
@@ -281,7 +281,7 @@ async def play_commnd(
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
-                cap = _["play_11"].format(message.from_user.mention)
+                cap = _["play_11"].format(message.from_user.mentoin)
             else:
                 return await mystic.edit_text(_["play_15"])
         elif await Apple.valid(url):
@@ -333,7 +333,7 @@ async def play_commnd(
                     user_id,
                     details,
                     chat_id,
-                    user_mention,
+                    user_mentoin,
                     message.chat.id,
                     streamtype="soundcloud",
                     forceplay=fplay,
@@ -364,7 +364,7 @@ async def play_commnd(
                     message.from_user.id,
                     url,
                     chat_id,
-                    message.from_user.mention,
+                    message.from_user.mentoin,
                     message.chat.id,
                     video=video,
                     streamtype="index",
@@ -420,7 +420,7 @@ async def play_commnd(
                 user_id,
                 details,
                 chat_id,
-                user_mention,
+                user_mentoin,
                 message.chat.id,
                 video=video,
                 streamtype=streamtype,
@@ -508,7 +508,7 @@ async def play_music(client, CallbackQuery, _):
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_mention = CallbackQuery.from_user.mention
+    user_mentoin = CallbackQuery.from_user.mentoin
     try:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
@@ -549,7 +549,7 @@ async def play_music(client, CallbackQuery, _):
             CallbackQuery.from_user.id,
             details,
             chat_id,
-            user_mention,
+            user_mentoin,
             CallbackQuery.message.chat.id,
             video,
             streamtype="youtube",
@@ -596,7 +596,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
     except:
         return
-    user_mention = CallbackQuery.from_user.mention
+    user_mentoin = CallbackQuery.from_user.mentoin
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
@@ -647,7 +647,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             user_id,
             result,
             chat_id,
-            user_mention,
+            user_mentoin,
             CallbackQuery.message.chat.id,
             video,
             streamtype="playlist",
@@ -700,27 +700,11 @@ async def slider_queries(client, CallbackQuery, _):
                 duration_min,
             ),
         )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
-        )
-    if what == "B":
-        if rtype == 0:
-            query_type = 9
-        else:
-            query_type = int(rtype - 1)
-        try:
-            await CallbackQuery.answer(_["playcb_2"])
-        except:
-            pass
-        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
-        buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
-        med = InputMediaPhoto(
-            media=thumbnail,
-            caption=_["play_10"].format(
-                title.title(),
-                duration_min,
-            ),
-        )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
-        )
+
+
+
+
+
+
+        
+         
