@@ -7,7 +7,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 from AlinaXIQ.utils.database import get_assistant
 import config
 from AlinaXIQ import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
-from AlinaXIQ.core.call import VIP
+from AlinaXIQ.core.call import Alina
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.utils import seconds_to_min, time_to_seconds
 from AlinaXIQ.utils.channelplay import get_channeplayCB
