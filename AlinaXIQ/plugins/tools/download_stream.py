@@ -65,7 +65,7 @@ async def download_video(client, CallbackQuery):
     last_Query_time = user_last_CallbackQuery_time.get(user_id, 0)
     if current_time - last_Query_time < SPAM_WINDOW_SECONDS:
         # If the limit is exceeded, send a response and return
-        await CallbackQuery.answer("**● ꒐ تۆ ئەم ڤیدیۆیەت داگرتووە لە چاتی تایبەتی منە\n\n● ꒐ ڤیدیۆیتر دوای 30 چرکە دابگرە**", show_alert=True)
+        await CallbackQuery.answer("● ꒐ تۆ ئەم ڤیدیۆیەت داگرتووە لە چاتی تایبەتی منە\n\n● ꒐ ڤیدیۆیتر دوای 30 چرکە دابگرە", show_alert=True)
         return
     else:
         # Update the last query time and query count
@@ -169,7 +169,7 @@ async def download_audio(client, CallbackQuery):
     last_Query_time = user_last_CallbackQuery_time.get(user_id, 0)
     if current_time - last_Query_time < SPAM_AUDIO_WINDOW_SECONDS:
         # If the limit is exceeded, send a response and return
-        await CallbackQuery.answer("**● ꒐ تۆ ئەم گۆرانییەت داگرتووە لە چاتی تایبەتی منە\n\n● ꒐ گۆرانیتر دوای 30 چرکە دابگرە**", show_alert=True)
+        await CallbackQuery.answer("● ꒐ تۆ ئەم گۆرانییەت داگرتووە لە چاتی تایبەتی منە\n\n● ꒐ گۆرانیتر دوای 30 چرکە دابگرە", show_alert=True)
         return
     else:
         # Update the last query time and query count
