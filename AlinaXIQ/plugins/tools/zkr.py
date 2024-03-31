@@ -2,7 +2,7 @@
 import asyncio
 from datetime import datetime, timedelta
 
-from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from pyrogram.raw import types
 from AlinaXIQ import app
@@ -133,7 +133,7 @@ azkar1 = [
 @app.on_message(filters.command(["زکری بەیانیان", "زکر"], ""))
 async def axkary(c, msg):
     bar = random.choice(azkar1)
-    await message.reply_text(f"**{bar}**", disable_web_page_preview=True)
+    await msg.reply_text(f"**{bar}**", disable_web_page_preview=True)
 
 
 chat = []
