@@ -1,6 +1,7 @@
 import random
 import string
 import asyncio
+from strings.filters import command
 from pyrogram import client, filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
