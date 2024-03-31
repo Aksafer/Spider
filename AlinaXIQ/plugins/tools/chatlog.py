@@ -75,4 +75,3 @@ async def on_left_chat_member(_, message: Message):
             [InlineKeyboardButton(f"نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT")]
          ]))
         await delete_served_chat(chat_id)
-        await userbot.one.leave_chat(chat_id)
