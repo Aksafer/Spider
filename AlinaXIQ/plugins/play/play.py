@@ -1,14 +1,13 @@
 import random
 import string
 import asyncio
-from strings.filters import command
 from pyrogram import client, filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 from AlinaXIQ.utils.database import get_assistant
 import config
 from AlinaXIQ import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
-from AlinaXIQ.core.call import Alina
+from AlinaXIQ.core.call import VIP
 from AlinaXIQ.misc import SUDOERS
 from AlinaXIQ.utils import seconds_to_min, time_to_seconds
 from AlinaXIQ.utils.channelplay import get_channeplayCB
@@ -36,12 +35,6 @@ from config import BANNED_USERS, lyrical
 from time import time
 from AlinaXIQ.utils.extraction import extract_user
 
-# Define a dictionary to track the last message timestamp for each user
-user_last_message_time = {}
-user_command_count = {}
-# Define the threshold for command spamming (e.g., 20 commands within 60 seconds)
-SPAM_THRESHOLD = 2
-SPAM_WINDOW_SECONDS = 5
 
 @app.on_message(
      command(
@@ -74,8 +67,6 @@ SPAM_WINDOW_SECONDS = 5
     & ~BANNED_USERS
 )
 @PlayWrapper
-# ... (existing code)
-
 async def play_commnd(
     client,
     message: Message,
@@ -87,7 +78,6 @@ async def play_commnd(
     url,
     fplay,
 ):
-    await add_served_chat(message.chat.id)
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
@@ -97,12 +87,12 @@ async def play_commnd(
     spotify = None
     user_id = message.from_user.id if message.from_user else "1121532100"
     user_mention = message.from_user.mention if message.from_user else "𝖠𝖽𝗆𝗂𝗇"
-
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
         else None
     )
+    
     video_telegram = (
         (message.reply_to_message.video or message.reply_to_message.document)
         if message.reply_to_message
@@ -573,7 +563,7 @@ async def play_music(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
-async def Alinamous_check(client, CallbackQuery):
+async def VIPmous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
             "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
