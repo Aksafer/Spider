@@ -1,3 +1,4 @@
+
 import os
 from random import randint
 from typing import Union
@@ -13,7 +14,7 @@ from AlinaXIQ.utils.exceptions import AssistantErr
 from AlinaXIQ.utils.inline import aq_markup, close_markup, stream_markup, stream_markup2
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
-from AlinaXIQ.utils.thumbnails import get_thumb
+from youtubesearchpython.__future__ import VideosSearch
 
 
 async def stream(
@@ -107,10 +108,10 @@ async def stream(
                         f"https://t.me/{app.username}?start=info_{vidid}",
                         title[:23],
                         duration_min,
-                        user_mention,
-                    ),
-                    reply_markup=InlineKeyboardMarkup(button),
-                )
+                        user_mention), reply_markup=InlineKeyboardMarkup(button))
+                
+                    
+                
                 db[chat_id][0]["mystic"] = run
                 db[chat_id][0]["markup"] = "stream"
         if count == 0:
@@ -193,10 +194,8 @@ async def stream(
                     f"https://t.me/{app.username}?start=info_{vidid}",
                     title[:23],
                     duration_min,
-                    user_mention,
-                ),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
+                    user_mention), reply_markup=InlineKeyboardMarkup(button))
+                
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "stream"
     elif streamtype == "soundcloud":
@@ -418,3 +417,32 @@ async def stream(
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
             await mystic.delete()
+
+
+
+
+
+# Function to get thumbnail by video ID
+async def get_thumb(videoid):
+    try:
+        # Search for the video using video ID
+        query = f"https://www.youtube.com/watch?v={videoid}"
+        results = VideosSearch(query, limit=1)
+        for result in (await results.next())["result"]:
+            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+        return thumbnail
+    except Exception as e:
+        return config.YOUTUBE_IMG_URL
+
+
+async def get_thumb(vidid):
+    try:
+        # Search for the video using video ID
+        query = f"https://www.youtube.com/watch?v={vidid}"
+        results = VideosSearch(query, limit=1)
+        for result in (await results.next())["result"]:
+            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+        return thumbnail
+    except Exception as e:
+        return config.YOUTUBE_IMG_URL
+    
