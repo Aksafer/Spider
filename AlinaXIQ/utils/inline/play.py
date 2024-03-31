@@ -119,16 +119,16 @@ def stream_markup(_, videoid, chat_id):
         
         
             InlineKeyboardButton(
-                text="𝖢𝗈𝗇𝗍𝗋𝗈𝗅𝗌 ♻",
+                text=_["Control"],
                 callback_data=f"Pages Back|3|{videoid}|{chat_id}",
             ),
         ],
         [
             InlineKeyboardButton(
-                text= "🎸 𝖵𝗂𝖽𝖾𝗈",
+                text=_["P_B_2"],
                 callback_data=f"downloadvideo {videoid}"),
             InlineKeyboardButton(
-                text= "🎸 𝖠𝗎𝖽𝗂𝗈",
+                text=_["P_B_1"],
                 callback_data=f"downloadaudio {videoid}")
         ],
         [
