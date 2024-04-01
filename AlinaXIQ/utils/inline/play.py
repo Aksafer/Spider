@@ -92,7 +92,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
         ],
         [
             InlineKeyboardButton(
-                text=_["ALINA"],
+                text=_["HOME"],
                 callback_data=f"MainMarkup {videoid}|{chat_id}",
             ),
         ],
