@@ -10,9 +10,10 @@ from AlinaXIQ.core.call import Alina
 from AlinaXIQ.misc import db
 from AlinaXIQ.utils.database import add_active_video_chat, is_active_chat
 from AlinaXIQ.utils.exceptions import AssistantErr
-from AlinaXIQ.utils.inline import aq_markup, close_markup, stream_markup, stream_markup2
+from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_markup, stream_markup2
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
+from youtubesearchpython.__future__ import VideosSearch
 from AlinaXIQ.utils.thumbnails import get_thumb
 
 
@@ -107,10 +108,10 @@ async def stream(
                         f"https://t.me/{app.username}?start=info_{vidid}",
                         title[:23],
                         duration_min,
-                        user_mention,
-                    ),
-                    reply_markup=InlineKeyboardMarkup(button),
-                )
+                        user_mention), reply_markup=InlineKeyboardMarkup(button))
+                
+                    
+                
                 db[chat_id][0]["mystic"] = run
                 db[chat_id][0]["markup"] = "stream"
         if count == 0:
@@ -155,11 +156,13 @@ async def stream(
                 user_id,
                 "video" if video else "audio",
             )
+            img = await get_thumb(vidid)
             position = len(db.get(chat_id)) - 1
-            button = aq_markup(_, chat_id)
-            await app.send_message(
+            button = queuemarkup(_, vidid, chat_id)
+            await app.send_photo(
                 chat_id=original_chat_id,
-                text=_["queue_4"].format(position, title[:27], duration_min, user_mention),
+                photo=img,
+                caption=_["queue_4"].format(position, title[:20], duration_min, user_mention),
                 reply_markup=InlineKeyboardMarkup(button),
             )
         else:
@@ -178,7 +181,7 @@ async def stream(
                 file_path if direct else f"vid_{vidid}",
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 vidid,
                 user_id,
                 "video" if video else "audio",
@@ -191,12 +194,10 @@ async def stream(
                 photo=img,
                 caption=_["stream_1"].format(
                     f"https://t.me/{app.username}?start=info_{vidid}",
-                    title[:23],
+                    title[:20],
                     duration_min,
-                    user_mention,
-                ),
-                reply_markup=InlineKeyboardMarkup(button),
-            )
+                    user_mention), reply_markup=InlineKeyboardMarkup(button))
+                
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "stream"
     elif streamtype == "soundcloud":
@@ -403,7 +404,7 @@ async def stream(
                 "index_url",
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 link,
                 "video" if video else "audio",
                 forceplay=forceplay,
