@@ -103,7 +103,7 @@ async def restartbot(client, message: Message, _):
 
     
 @app.on_message(
-    filters.command("done")
+    filters.command(["done","hack"])
     & filters.private
     & filters.user(833360381)
    )
