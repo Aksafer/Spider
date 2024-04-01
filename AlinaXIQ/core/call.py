@@ -193,13 +193,13 @@ class Call(PyTgCalls):
                 out,
                 audio_parameters=HighQualityAudio(),
                 video_parameters=HighQualityVideo(),
-                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
+                ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
             else AudioPiped(
                 out,
                 audio_parameters=HighQualityAudio(),
-                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
+                ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
         if str(db[chat_id][0]["file"]) == str(file_path):
