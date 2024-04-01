@@ -31,6 +31,7 @@ def PlayWrapper(command):
     async def wrapper(client, message):
         language = await get_lang(message.chat.id)
         _ = get_string(language)
+    
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
@@ -101,71 +102,87 @@ def PlayWrapper(command):
             fplay = None
 
         if not await is_active_chat(chat_id):
-            userbot = await get_assistant(chat_id)
+            chat_id = message.chat.id
+    userbot = await get_assistant(message.chat.id)
+    userbot_id = userbot.id
+    done = await message.reply("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+    await asyncio.sleep(1)
+    # Get chat member object
+    chat_member = await app.get_chat_member(chat_id, app.id)
+    
+    # Condition 1: Group username is present, bot is not admin
+    if message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        try:
+            await userbot.join_chat(message.chat.username)
+            await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
+        except Exception as e:
+            await done.edit_text("**🧑🏻‍💻┋ پێویستە ئەدمین بم و ڕۆڵم هەبێت بۆ لادانی باندی یاریدەدەرەکەم**")
+            
+
+    # Condition 2: Group username is present, bot is admin, and Userbot is not banned
+    if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        try:
+            await userbot.join_chat(message.chat.username)
+            await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
+        except Exception as e:
+            await done.edit_text(str(e))
+
+    
+    
+    # Condition 3: Group username is not present/group is private, bot is admin and Userbot is banned
+    if message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        userbot_member = await app.get_chat_member(chat_id, userbot.id)
+        if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
             try:
-                try:
-                    get = await app.get_chat_member(chat_id, userbot.id)
-                except ChatAdminRequired:
-                    return await message.reply_text(_["call_1"])
-                if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
-                ):
-                    return await message.reply_text(
-                        _["call_2"].format(
-                            app.mention, userbot.id, userbot.name, userbot.username
-                        ), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text= "๏ لادانی باند ๏", callback_data=f"unban_assistant")]])
-                    )
-            except UserNotParticipant:
-                if chat_id in links:
-                    invitelink = links[chat_id]
-                else:
-                    if message.chat.username:
-                        invitelink = message.chat.username
-                        try:
-                            await userbot.resolve_peer(invitelink)
-                        except:
-                            pass
-                    else:
-                        try:
-                            invitelink = await app.export_chat_invite_link(chat_id)
-                        except ChatAdminRequired:
-                            return await message.reply_text(_["call_1"])
-                        except Exception as e:
-                            return await message.reply_text(
-                                _["call_3"].format(app.mention, type(e).__name__)
-                            )
+                await app.unban_chat_member(chat_id, userbot.id)
+                await done.edit_text("**✅┋ باندی یاریدەدەر لادەدرێت . .**")
+                await userbot.join_chat(message.chat.username)
+                await done.edit_text("**👾┋ ئەکاونتی یاریدەدەر باندکراوە، بەڵام ئێستا باندی لادەدەم، دواتر جۆینی گرووپ دەکات ✅**")
+            except Exception as e:
+                await done.edit_text("**❌┋ شکستی هێنا لە جۆین کردن، تکایە ڕۆڵی باند و بانگھێشت کردنم پێبدە تاوەکو بتوانم ڕاستەوخۆ زیادی بکەمە گرووپ دووبارە بنووسە : /userbotjoin **")
+        return
+    
+    # Condition 4: Group username is not present/group is private, bot is not admin
+    if not message.chat.username and not chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        await done.edit_text("**🧑🏻‍💻┋ پێویستە ئەدمین بم بۆ بانگھێشت کردنی یاریدەدەرەکەم**")
+        
 
-                if invitelink.startswith("https://t.me/+"):
-                    invitelink = invitelink.replace(
-                        "https://t.me/+", "https://t.me/joinchat/"
-                    )
-                myu = await message.reply_text(_["call_4"].format(app.mention))
-                try:
-                    await asyncio.sleep(1)
-                    await userbot.join_chat(invitelink)
-                except InviteRequestSent:
-                    try:
-                        await app.approve_chat_join_request(chat_id, userbot.id)
-                    except Exception as e:
-                        return await message.reply_text(
-                            _["call_3"].format(app.mention, type(e).__name__)
-                        )
-                    await asyncio.sleep(3)
-                    await myu.edit(_["call_5"].format(app.mention))
-                except UserAlreadyParticipant:
-                    pass
-                except Exception as e:
-                    return await message.reply_text(
-                        _["call_3"].format(app.mention, type(e).__name__)
-                    )
 
-                links[chat_id] = invitelink
+    # Condition 5: Group username is not present/group is private, bot is admin
+    if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        try:
+            try:
+                userbot_member = await app.get_chat_member(chat_id, userbot.id)
+                if userbot_member.status not in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
+                    await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر پێشتر جۆینی کردووە و لە گرووپە**")
+                    return
+            except Exception as e:
+                await done.edit_text("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+                await done.edit_text("**✅┋ تکایە کەمێك چاوەڕێ بکە بانگھێشت دەکرێت . .**")
+                invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
+                await asyncio.sleep(2)
+                await userbot.join_chat(invite_link.invite_link)
+                await done.edit_text("**✅┋ بە سەرکەوتوویی یاریدەدەری بۆت جۆینی کرد**")
+        except Exception as e:
+            await done.edit_text(f"**💀┋ من یاریدەدەرەکەم دۆزیەوە و وە جۆینی گرووپی نەکردووە بەڵام من ڕۆڵی بانگھێشت کردنی خەڵکیم نییە بۆیە دەبێت ڕۆڵی بانگھێشت کردنم پێبدەیت دواتر دووبارە بنووسیت : /userbotjoin \n\n➥ ئایدی » @{userbot.username} **")
 
-                try:
-                    await userbot.resolve_peer(chat_id)
-                except:
-                    pass
+    
+    
+    # Condition 6: Group username is not present/group is private, bot is admin and Userbot is banned
+    if not message.chat.username and chat_member.status == ChatMemberStatus.ADMINISTRATOR:
+        userbot_member = await app.get_chat_member(chat_id, userbot.id)
+        if userbot_member.status in [ChatMemberStatus.BANNED, ChatMemberStatus.RESTRICTED]:
+            try:
+                await app.unban_chat_member(chat_id, userbot.id)
+                await done.edit_text("**✅┋ ئەکاونتی یاریدەدەر باندی لادرا\nدووبارە بنووسە : /userbotjoin**")
+                invite_link = await app.create_chat_invite_link(chat_id, expire_date=None)
+                await asyncio.sleep(2)
+                await userbot.join_chat(invite_link.invite_link)
+                await done.edit_text("**👾┋ ئەکاونتی یاریدەدەر باندکراوە، بەڵام ئێستا باندی لادەدەم، دواتر جۆینی گرووپ دەکات ✅**")
+            except Exception as e:
+                await done.edit_text(f"**✅┋ من یاریدەدەرەکەم دۆزیەوە و وە باندکراوە لە گرووپ\nبەڵام من ڕۆڵی لادانی باندم نییە\n بۆیە دەبێت ڕۆڵی باند کردنم پێبدەیت\nدواتر دووبارە بنووسیت : /userbotjoin \n\n➥ ئایدی » @{userbot.username} **")
+                   
+                pass
 
         return await command(
             client,
