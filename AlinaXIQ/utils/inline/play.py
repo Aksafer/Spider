@@ -281,8 +281,8 @@ def queue_markup(_, videoid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text=_["ALINA"],
-                callback_data=f"PanelMarkup None|{chat_id}",
+                text=_["HOME"],
+                callback_data=f"MainMarkup {videoid}|{chat_id}",
             ),
         ],
     ]
