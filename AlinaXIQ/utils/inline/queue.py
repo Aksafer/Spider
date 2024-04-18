@@ -77,8 +77,7 @@ def aq_markup(_, chat_id):
         ],
         [
             InlineKeyboardButton(
-                text=_["CLOSE_BUTTON"],
-                    callback_data="close",
+                text="نوێکارییەکانی ئەلینا 🍻", url="https://t.me/MGIMT",
             ),
         ],
     ]
@@ -116,8 +115,7 @@ def queuemarkup(_, vidid, chat_id):
         ],
         [
             InlineKeyboardButton(
-                 text=_["CLOSE_BUTTON"],
-                    callback_data="close",
+                text="نوێکارییەکانی ئەلینا 🍻", url="https://t.me/MGIMT",
                 
             ),
         ],
