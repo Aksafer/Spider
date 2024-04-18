@@ -448,7 +448,14 @@ def panel_markup_2(_, videoid, chat_id):
     return buttons
 
 def panel_markup_5(_, videoid, chat_id):
-    buttons = [
+    buttons = [ 
+
+         [
+            InlineKeyboardButton(
+                text=_["S_B_3"],
+                url=f"https://t.me/{app.username}?startgroup=true",
+            ),
+        ],
         [
             InlineKeyboardButton(text="II 𝖯𝖺𝗎𝗌𝖾", callback_data=f"ADMIN Pause|{chat_id}"),
             InlineKeyboardButton(text="▢ 𝖲𝗍𝗈𝗉 ▢", callback_data=f"ADMIN Stop|{chat_id}"),
