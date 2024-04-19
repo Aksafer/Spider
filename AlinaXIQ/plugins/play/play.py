@@ -6,7 +6,6 @@ from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 from AlinaXIQ.utils.database import get_assistant
 import config
-from strings.filters import command
 from AlinaXIQ import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from AlinaXIQ.core.call import Alina
 from AlinaXIQ.misc import SUDOERS
@@ -34,8 +33,15 @@ from AlinaXIQ.utils.logger import play_logs
 from config import BANNED_USERS, lyrical
 from time import time
 from AlinaXIQ.utils.extraction import extract_user
+from strings.filters import command
 from AlinaXIQ.utils.thumbnails import get_thumb
 
+# Define a dictionary to track the last message timestamp for each user
+user_last_message_time = {}
+user_command_count = {}
+# Define the threshold for command spamming (e.g., 20 commands within 60 seconds)
+SPAM_THRESHOLD = 2
+SPAM_WINDOW_SECONDS = 5
 
 @app.on_message(
      command(
@@ -81,6 +87,27 @@ async def play_commnd(
     url,
     fplay,
 ):
+    user_id = message.from_user.id
+    current_time = time()
+    # Update the last message timestamp for the user
+    last_message_time = user_last_message_time.get(user_id, 0)
+
+    if current_time - last_message_time < SPAM_WINDOW_SECONDS:
+        # If less than the spam window time has passed since the last message
+        user_last_message_time[user_id] = current_time
+        user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
+        if user_command_count[user_id] > SPAM_THRESHOLD:
+            # Block the user if they exceed the threshold
+            hu = await message.reply_text(f"**🧑🏻‍💻┋ {message.from_user.mention} بۆت سپام مەکە بەڕێز\n🧑🏻‍💻┋ پێنج چرکە بوەستە**")
+            await asyncio.sleep(3)
+            await hu.delete()
+            return 
+    else:
+        # If more than the spam window time has passed, reset the command count and update the message timestamp
+        user_command_count[user_id] = 1
+        user_last_message_time[user_id] = current_time
+
+
     await add_served_chat(message.chat.id)
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
@@ -284,7 +311,7 @@ async def play_commnd(
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
-                cap = _["play_11"].format(message.from_user.mention)
+                cap = _["play_11"].format(message.from_user.first_name)
             else:
                 return await mystic.edit_text(_["play_15"])
         elif await Apple.valid(url):
@@ -336,7 +363,7 @@ async def play_commnd(
                     user_id,
                     details,
                     chat_id,
-                    user_name,
+                    user_mention,
                     message.chat.id,
                     streamtype="soundcloud",
                     forceplay=fplay,
@@ -577,7 +604,7 @@ async def VIPmous_check(client, CallbackQuery):
         pass
 
 
-@app.on_callback_query(filters.regex("Alinalaylists") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("AlinaPlaylists") & ~BANNED_USERS)
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
@@ -703,30 +730,8 @@ async def slider_queries(client, CallbackQuery, _):
                 duration_min,
             ),
         )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
-        )
-    if what == "B":
-        if rtype == 0:
-            query_type = 9
-        else:
-            query_type = int(rtype - 1)
-        try:
-            await CallbackQuery.answer(_["playcb_2"])
-        except:
-            pass
-        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
-        buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
-        med = InputMediaPhoto(
-            media=thumbnail,
-            caption=_["play_10"].format(
-                title.title(),
-                duration_min,
-            ),
-        )
-        return await CallbackQuery.edit_message_media(
-            media=med, reply_markup=InlineKeyboardMarkup(buttons)
-        )
+
+
 
 #-----------------------------------------------------STREAM----------------------------------------#
          
@@ -745,8 +750,7 @@ from AlinaXIQ.utils.exceptions import AssistantErr
 from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_markup, stream_markup2, panel_markup_4
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
-from AlinaXIQ.utils.thumbnails import get_thumb
-
+from youtubesearchpython.__future__ import VideosSearch
 
 
 async def stream(
@@ -1151,3 +1155,5 @@ async def stream(
             db[chat_id][0]["mystic"] = run
             db[chat_id][0]["markup"] = "tg"
             await mystic.delete()
+
+
