@@ -14,7 +14,6 @@ from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_m
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
 from youtubesearchpython.__future__ import VideosSearch
-from AlinaXIQ.utils.thumbnails import get_thumb
 
 
 async def stream(
@@ -151,7 +150,7 @@ async def stream(
                 file_path if direct else f"vid_{vidid}",
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 vidid,
                 user_id,
                 "video" if video else "audio",
@@ -181,7 +180,7 @@ async def stream(
                 file_path if direct else f"vid_{vidid}",
                 title,
                 duration_min,
-                user_name,
+                user_mention,
                 vidid,
                 user_id,
                 "video" if video else "audio",
@@ -404,7 +403,7 @@ async def stream(
                 "index_url",
                 title,
                 duration_min,
-                user_name,
+                user_mention,
                 link,
                 "video" if video else "audio",
                 forceplay=forceplay,
