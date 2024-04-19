@@ -242,7 +242,7 @@ def telegram_markup(_, chat_id):
                 callback_data=f"PanelMarkup None|{chat_id}",
             ),
             InlineKeyboardButton(
-                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+                text=_["CLOSE_BUTTON"], callback_data="close"
             ),
         ],
     ]
@@ -309,7 +309,7 @@ def stream_markup2(_, chat_id):
         [
 
             InlineKeyboardButton(
-                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+                text=_["CLOSE_BUTTON"], callback_data="close"
             ),
         ],
     ]
@@ -357,12 +357,11 @@ def stream_markup_timer2(_, chat_id, played, dur):
         [
 
             InlineKeyboardButton(
-                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+                text=_["CLOSE_BUTTON"], callback_data="close"
             ),
         ],
     ]
     return buttons
-    
 
 
 def panel_markup_1(_, videoid, chat_id):
