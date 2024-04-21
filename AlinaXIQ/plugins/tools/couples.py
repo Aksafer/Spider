@@ -7,6 +7,7 @@ from pyrogram import *
 from pyrogram.types import *
 from pyrogram.enums import *
 from strings.filters import command
+from config import BANNED_USERS
 #BOT FILE NAME
 from AlinaXIQ import app as app
 from AlinaXIQ.mongo.couples_db import _get_image, get_couple
@@ -31,7 +32,7 @@ def dt_tom():
 tomorrow = str(dt_tom())
 today = str(dt()[0])
 
-@app.on_message(command(["/couples", "kapl", "قل", "کەپل", "کەپڵ"]))
+@app.on_message(command(["/couples", "kapl", "قل", "کەپل", "کەپڵ"]) & ~BANNED_USERS)
 async def ctest(_, message):
     cid = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
