@@ -721,7 +721,7 @@ from AlinaXIQ.utils.exceptions import AssistantErr
 from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_markup, stream_markup2, panel_markup_4
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
-from AnonXMusic.utils.thumbnails import get_thumb
+from AlinaXIQ.utils.thumbnails import get_thumb
 
 
 async def stream(
