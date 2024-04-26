@@ -394,7 +394,7 @@ class Call(PyTgCalls):
                     )
                 theme = await check_theme(chat_id)
                 img = await get_thumb(videoid, userid, theme)
-                button = stream_markup2(_, chat_id)
+                button = stream_markup2(_, videoid, chat_id)
                 run = await app.send_photo(
                     chat_id=original_chat_id,
                     photo=img,
