@@ -762,7 +762,7 @@ async def stream(
     if not result:
         return
     if forceplay:
-        await VIP.force_stop_stream(chat_id)
+        await Alina.force_stop_stream(chat_id)
     if streamtype == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
