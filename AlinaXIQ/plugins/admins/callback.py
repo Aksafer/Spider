@@ -32,7 +32,6 @@ from AlinaXIQ.utils.formatters import seconds_to_min
 from AlinaXIQ.utils.inline import close_markup, stream_markup, stream_markup_timer, stream_markup2, stream_markup_timer2, panel_markup_5, track_markup, slider_markup, livestream_markup, playlist_markup, stream_markup, stream_markup_timer, telegram_markup, panel_markup_4, panel_markup_3, panel_markup_2, stream_markup_timer2, stream_markup2, queue_markup, panel_markup_1 
 from AlinaXIQ.utils.stream.autoclear import auto_clean
 from AlinaXIQ.utils.thumbnails import get_thumb
-from AlinaXIQ.utils.theme import check_theme
 from config import BANNED_USERS, SOUNCLOUD_IMG_URL, STREAM_IMG_URL, TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist, confirmer, votemode
 from strings import get_string
 from config import lyrical
@@ -414,9 +413,8 @@ async def del_back_playlist(client, CallbackQuery, _):
                 await Alina.skip_stream(chat_id, link, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
-            theme = await check_theme(chat_id)
             button = stream_markup2(_, chat_id)
-            img = await get_thumb(videoid, userid, theme)
+            img = await get_thumb(videoid, userid)
             run = await CallbackQuery.message.reply_photo(
                 photo=img,
                 caption=_["stream_1"].format(
@@ -452,8 +450,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 return await mystic.edit_text(_["call_6"])
             button = stream_markup(_, videoid, chat_id)
-            theme = await check_theme(chat_id)
-            img = await get_thumb(videoid, userid, theme)
+            img = await get_thumb(videoid, userid)
             run = await CallbackQuery.message.reply_photo(
                 photo=img,
                 caption=_["stream_1"].format(
@@ -524,8 +521,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 db[chat_id][0]["markup"] = "tg"
             else:
                 button = stream_markup(_, videoid, chat_id)
-                theme = await check_theme(chat_id)
-                img = await get_thumb(videoid, userid, theme)
+                img = await get_thumb(videoid, userid)
                 run = await CallbackQuery.message.reply_photo(
                     photo=img,
                     caption=_["stream_1"].format(
