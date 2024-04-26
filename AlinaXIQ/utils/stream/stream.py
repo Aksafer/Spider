@@ -183,7 +183,7 @@ async def stream(
                 file_path if direct else f"vid_{vidid}",
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 vidid,
                 user_id,
                 "video" if video else "audio",
@@ -191,6 +191,7 @@ async def stream(
             )
             img = await get_thumb(vidid)
             button = stream_markup(_, vidid, chat_id)
+            run = await app.send_photo(
                 original_chat_id,
                 photo=img,
                 caption=_["stream_1"].format(
