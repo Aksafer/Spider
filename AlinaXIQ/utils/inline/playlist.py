@@ -1,4 +1,3 @@
-
 import config
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -53,7 +52,7 @@ def get_playlist_markup(_):
                 text=_["P_B_1"], callback_data="play_playlist a"
             ),
             InlineKeyboardButton(
-                text=_["P_B_2"], callback_data="play_playlist b"
+                text=_["P_B_2"], callback_data="play_playlist v"
             ),
         ],
         [
