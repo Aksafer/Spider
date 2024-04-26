@@ -894,7 +894,7 @@ async def stream(
             qimg = await get_qthumb(vidid, user_id, theme)
             button = aq_markup(_, vidid, chat_id)
             await app.send_photo(
-                original_chat_id,
+                chat_id=original_chat_id,
                 photo=qimg,
                 caption=_["queue_4"].format(position, title[:18], duration_min, user_mention),
                 reply_markup=InlineKeyboardMarkup(button),
