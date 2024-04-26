@@ -743,7 +743,7 @@ from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_m
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
 from youtubesearchpython.__future__ import VideosSearch
-from AlinaXIQ.utils.thumbnails import get_thumb, get_qthumb
+from AlinaXIQ.utils.thumbnails import get_thumb
 
 
 
@@ -830,8 +830,7 @@ async def stream(
                     "video" if video else "audio",
                     forceplay=forceplay,
                 )
-            
-                img = await get_thumb(vidid, user_id)
+                img = await get_thumb(vidid)
                 button = stream_markup(_, vidid, chat_id)
                 run = await app.send_photo(
                     original_chat_id,
@@ -889,9 +888,8 @@ async def stream(
                 user_id,
                 "video" if video else "audio",
             )
-        
+            img = await get_thumb(vidid)
             position = len(db.get(chat_id)) - 1
-            qimg = await get_qthumb(vidid, user_id)
             button = aq_markup(_, chat_id)
             await app.send_photo(
                 chat_id=original_chat_id,
@@ -921,8 +919,7 @@ async def stream(
                 "video" if video else "audio",
                 forceplay=forceplay,
             )
-            
-            img = await get_thumb(vidid, user_id)
+            img = await get_thumb(vidid)
             button = stream_markup(_, vidid, chat_id)
             run = await app.send_photo(
                 original_chat_id,
@@ -1088,8 +1085,7 @@ async def stream(
                 "video" if video else "audio",
                 forceplay=forceplay,
             )
-            
-            img = await get_thumb(vidid, user_id)
+            img = await get_thumb(vidid)
             button = stream_markup2(_, chat_id)
             run = await app.send_photo(
                 original_chat_id,
