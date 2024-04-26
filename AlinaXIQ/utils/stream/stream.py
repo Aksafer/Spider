@@ -14,6 +14,8 @@ from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_m
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
 from youtubesearchpython.__future__ import VideosSearch
+from AlinaXIQ.utils.thumbnails import get_thumb
+from AlinaXIQ.utils.theme import check_theme
 
 
 async def stream(
@@ -99,7 +101,8 @@ async def stream(
                     "video" if video else "audio",
                     forceplay=forceplay,
                 )
-                img = await get_thumb(vidid)
+                theme = await check_theme(chat_id)
+                img = await get_thumb(videoid, userid, theme)
                 button = stream_markup(_, vidid, chat_id)
                 run = await app.send_photo(
                     original_chat_id,
@@ -157,7 +160,8 @@ async def stream(
                 user_id,
                 "video" if video else "audio",
             )
-            img = await get_thumb(vidid)
+            theme = await check_theme(chat_id)
+            img = await get_thumb(videoid, userid, theme)
             position = len(db.get(chat_id)) - 1
             button = queuemarkup(_, vidid, chat_id)
             await app.send_photo(
@@ -188,7 +192,8 @@ async def stream(
                 "video" if video else "audio",
                 forceplay=forceplay,
             )
-            img = await get_thumb(vidid)
+            theme = await check_theme(chat_id)
+            img = await get_thumb(videoid, userid, theme)
             button = stream_markup(_, vidid, chat_id)
             run = await app.send_photo(
                 original_chat_id,
@@ -354,7 +359,8 @@ async def stream(
                 "video" if video else "audio",
                 forceplay=forceplay,
             )
-            img = await get_thumb(vidid)
+            theme = await check_theme(chat_id)
+            img = await get_thumb(videoid, userid, theme)
             button = stream_markup2(_, chat_id)
             run = await app.send_photo(
                 original_chat_id,
