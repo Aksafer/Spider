@@ -831,7 +831,7 @@ async def stream(
                     forceplay=forceplay,
                 )
                 theme = await check_theme(chat_id)
-                img = await get_thumb(videoid, userid, theme)
+                img = await get_thumb(vidid, user_id, theme)
                 button = stream_markup(_, vidid, chat_id)
                 run = await app.send_photo(
                     original_chat_id,
@@ -890,7 +890,7 @@ async def stream(
                 "video" if video else "audio",
             )
             theme = await check_theme(chat_id)
-            img = await get_thumb(videoid, userid, theme)
+            img = await get_thumb(vidid, user_id, theme)
             position = len(db.get(chat_id)) - 1
             button = aq_markup(_, chat_id)
             await app.send_photo(
@@ -922,7 +922,7 @@ async def stream(
                 forceplay=forceplay,
             )
             theme = await check_theme(chat_id)
-            img = await get_thumb(videoid, userid, theme)
+            img = await get_thumb(vidid, user_id, theme)
             button = stream_markup(_, vidid, chat_id)
             run = await app.send_photo(
                 original_chat_id,
@@ -1089,8 +1089,8 @@ async def stream(
                 forceplay=forceplay,
             )
             theme = await check_theme(chat_id)
-            img = await get_thumb(videoid, userid, theme)
-            button = stream_markup2(_, chat_id)
+            img = await get_thumb(vidid, user_id, theme)
+            button = stream_markup2(_, vidid, chat_id)
             run = await app.send_photo(
                 original_chat_id,
                 photo=img,
