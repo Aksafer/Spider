@@ -31,7 +31,7 @@ def add_corners(im):
     im.putalpha(mask)
 
 
-async def get_thumb(videoid, user_id, theme):
+async def get_thumb(videoid, user_id):
     if os.path.isfile(f"cache/{videoid}_{user_id}.png"):
         return f"cache/{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -86,7 +86,6 @@ async def get_thumb(videoid, user_id, theme):
         x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"Backgrounds/{theme}.PNG")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
@@ -190,7 +189,7 @@ async def get_thumb(videoid, user_id, theme):
         return YOUTUBE_IMG_URL
 
 
-async def get_qthumb(videoid, user_id, theme):
+async def get_qthumb(videoid, user_id):
     if os.path.isfile(f"cache/que{videoid}_{user_id}.png"):
         return f"cache/que{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -245,7 +244,6 @@ async def get_qthumb(videoid, user_id, theme):
         x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"Backgrounds/{theme}.PNG")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
