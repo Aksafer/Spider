@@ -414,8 +414,8 @@ async def del_back_playlist(client, CallbackQuery, _):
                 await Alina.skip_stream(chat_id, link, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
-            button = stream_markup2(_, videoid, chat_id)
             theme = await check_theme(chat_id)
+            button = stream_markup2(_, chat_id)
             img = await get_thumb(videoid, userid, theme)
             run = await CallbackQuery.message.reply_photo(
                 photo=img,
