@@ -33,9 +33,8 @@ from AlinaXIQ.utils.database import (
 from AlinaXIQ.utils.logger import play_logs
 from config import BANNED_USERS, lyrical
 from time import time
-from AlinaXIQ.utils.extraction import extract_user
 from strings.filters import command 
-
+from AlinaXIQ.utils.extraction import extract_user
 
 @app.on_message(
      command(
@@ -68,6 +67,8 @@ from strings.filters import command
     & ~BANNED_USERS
 )
 @PlayWrapper
+# ... (existing code)
+
 async def play_commnd(
     client,
     message: Message,
@@ -229,7 +230,7 @@ async def play_commnd(
                     await mystic.edit_text("All videos from the channel have been added to the queue.")
                 except Exception as e:
                     print(e)  # Handle or log the error appropriately
-                    await mystic.edit_text(_["play_3"])
+                    
                     os.system(f"kill -9 {os.getpid()} && bash start")
                 
             else:
@@ -579,7 +580,7 @@ async def play_music(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
-async def VIPmous_check(client, CallbackQuery):
+async def Alinamous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
             "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
@@ -640,7 +641,7 @@ async def play_playlists_command(client, CallbackQuery, _):
         try:
             result, spotify_id = await Spotify.playlist(videoid)
         except:
-            return await mystic.edit_text(_["play_3"])
+            
             os.system(f"kill -9 {os.getpid()} && bash start")
     if ptype == "spalbum":
         try:
@@ -741,6 +742,7 @@ from AlinaXIQ.utils.exceptions import AssistantErr
 from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_markup, stream_markup2, panel_markup_4
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
+from youtubesearchpython.__future__ import VideosSearch
 from AlinaXIQ.utils.thumbnails import get_thumb
 
 
@@ -760,7 +762,7 @@ async def stream(
     if not result:
         return
     if forceplay:
-        await Alina.force_stop_stream(chat_id)
+        await VIP.force_stop_stream(chat_id)
     if streamtype == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
@@ -1014,7 +1016,7 @@ async def stream(
                 file_path,
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 streamtype,
                 user_id,
                 "video" if video else "audio",
@@ -1108,7 +1110,7 @@ async def stream(
                 "index_url",
                 title,
                 duration_min,
-                user_mention,
+                user_name,
                 link,
                 "video" if video else "audio",
             )
