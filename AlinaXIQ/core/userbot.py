@@ -8,12 +8,12 @@ from pyrogram import filters
 load_dotenv()
 import config
 from dotenv import load_dotenv
-from strings.__init__ import LOGGERS
 from ..logging import LOGGER
 BOT_TOKEN = getenv("BOT_TOKEN", "")
 MONGO_DB_URI = getenv("MONGO_DB_URI", "")
 STRING_SESSION = getenv("STRING_SESSION", "")
 
+LOGGERS = "IQMCBOT"
 
 assistants = []
 assistantids = []
