@@ -144,7 +144,7 @@ async def unban_assistant(_, callback: CallbackQuery):
         await callback.answer("⇜ بە سەرکەوتوویی باندی ئەکاونتی یاریدەدەر لادرا♥\n\n⇜ ئێستا دەتوانی گۆرانی لێ بدەیت🎻\n\n⇜ لێدانی گۆرانی : /play + ناوی گۆرانی ⎋", show_alert=True)
     except Exception as e:
         await callback.answer(f"⇜ شکستی هێنا لە لادانی باندی ئەکاونتی یاریدەدەر ڕۆڵم نییە\n\n⇜ ڕۆڵم پێبدە بۆ لادانی باندی ئەکاونتی یاریدەدەر ⎋", show_alert=True)
-
+        
 
 checker = {}
 upvoters = {}
@@ -222,7 +222,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 [
                     [
                         InlineKeyboardButton(
-                            text=f"♥️ {get_upvotes}",
+                            text=f"👍 {get_upvotes}",
                             callback_data=f"ADMIN  UpVote|{chat_id}_{counter}",
                         )
                     ]
@@ -250,8 +250,8 @@ async def del_back_playlist(client, CallbackQuery, _):
         await Alina.pause_stream(chat_id)
         buttons = [
         [
-            InlineKeyboardButton(text="𝖱𝖾𝗌𝗎𝗆𝖾", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="𝖱𝖾𝗉𝗅𝖺𝗒", callback_data=f"ADMIN Replay|{chat_id}"),
+            InlineKeyboardButton(text="▷ 𝖱𝖾𝗌𝗎𝗆𝖾", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="𝖱𝖾𝗉𝗅𝖺𝗒 ↺", callback_data=f"ADMIN Replay|{chat_id}"),
         ],
         ]
         await CallbackQuery.message.reply_text(
@@ -267,15 +267,15 @@ async def del_back_playlist(client, CallbackQuery, _):
         [
 
             InlineKeyboardButton(
-                text="𝖲𝗄𝗂𝗉", callback_data=f"ADMIN Skip|{chat_id}"
+                text="𝖲𝗄𝗂𝗉 ‣‣I", callback_data=f"ADMIN Skip|{chat_id}"
             ),
             InlineKeyboardButton(
-                text="𝖲𝗍𝗈𝗉", callback_data=f"ADMIN Stop|{chat_id}"
+                text="▢ 𝖲𝗍𝗈𝗉", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
         [
             InlineKeyboardButton(
-                text="𝖯𝖺𝗎𝗌𝖾",
+                text="II 𝖯𝖺𝗎𝗌𝖾",
                 callback_data=f"ADMIN Pause|{chat_id}",
             ),
         ]
@@ -690,3 +690,4 @@ async def markup_timer():
 
 
 asyncio.create_task(markup_timer())
+    
