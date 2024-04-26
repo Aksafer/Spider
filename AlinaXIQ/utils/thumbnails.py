@@ -32,6 +32,7 @@ def add_corners(im):
 
 
 async def get_thumb(videoid, user_id, theme):
+    user_id = await app.get_chat_member(message.chat.id, message.from_user.id)
     if os.path.isfile(f"cache/{videoid}_{user_id}.png"):
         return f"cache/{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
