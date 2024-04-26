@@ -892,7 +892,7 @@ async def stream(
             theme = await check_theme(chat_id)
             position = len(db.get(chat_id)) - 1
             qimg = await get_qthumb(vidid, user_id, theme)
-            button = aq_markup(_, vidid, chat_id)
+            button = aq_markup(_, chat_id)
             await app.send_photo(
                 chat_id=original_chat_id,
                 photo=qimg,
