@@ -6,7 +6,7 @@ from AlinaXIQ import app
 
 
 def first_page(_):
-	controll_button = [InlineKeyboardButton(text="لیستی سەرەکی", callback_data=f"settingsback_helper"), InlineKeyboardButton(text=_["NEXT"], callback_data=f"dilXaditi")]
+	controll_button = [InlineKeyboardButton(text="• لیستی سەرەکی •", callback_data=f"settingsback_helper"), InlineKeyboardButton(text=_["NEXT"], callback_data=f"dilXaditi")]
 	first_page_menu = InlineKeyboardMarkup(
 		[
 			[InlineKeyboardButton(text=_["H_B_1"], callback_data="help_callback hb1"), InlineKeyboardButton(text=_["H_B_2"], callback_data="help_callback hb2"),InlineKeyboardButton(text=_["H_B_3"], callback_data="help_callback hb3")],
@@ -118,8 +118,9 @@ def help_back_markup(_):
             [
                 InlineKeyboardButton(
                     text=_["BACK_BUTTON"],
-                    callback_data=f"settings_back_helper",
-                ),
+                    callback_data=f"settings_back_helper")
+            ],
+            [
                 InlineKeyboardButton(
                     text=_["CLOSE_BUTTON"], callback_data=f"close"
                 ),
