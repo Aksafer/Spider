@@ -5,15 +5,15 @@ from typing import Union
 
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
-from ntgcalls import TelegramServerError
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
+    TelegramServerError,
 )
 from pytgcalls.types import Update
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from pytgcalls.types.input_stream.quality import HighQualityAudio, HighQualityVideo
+from pytgcalls.types.input_stream.quality import HighQualityAudio, MediumQualityVideo
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
@@ -36,7 +36,6 @@ from AlinaXIQ.utils.formatters import check_duration, seconds_to_min, speed_conv
 from AlinaXIQ.utils.inline.play import stream_markup, stream_markup2
 from AlinaXIQ.utils.stream.autoclear import auto_clean
 from AlinaXIQ.utils.thumbnails import get_thumb
-
 from strings import get_string
 
 autoend = {}
@@ -72,7 +71,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot3 = Client(
-            name="AlinaAss3",
+            name="AlinaXAss3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -82,7 +81,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot4 = Client(
-            name="AlinaXAss4",
+            name="AlinaAss4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -193,14 +192,14 @@ class Call(PyTgCalls):
             AudioVideoPiped(
                 out,
                 audio_parameters=HighQualityAudio(),
-                video_parameters=HighQualityVideo(),
-                ffmpeg_parameters=f"-ss {played} -to {duration}",
+                video_parameters=MediumQualityVideo(),
+                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
             else AudioPiped(
                 out,
                 audio_parameters=HighQualityAudio(),
-                ffmpeg_parameters=f"-ss {played} -to {duration}",
+                additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
         if str(db[chat_id][0]["file"]) == str(file_path):
@@ -244,7 +243,7 @@ class Call(PyTgCalls):
             stream = AudioVideoPiped(
                 link,
                 audio_parameters=HighQualityAudio(),
-                video_parameters=HighQualityVideo(),
+                video_parameters=MediumQualityVideo(),
             )
         else:
             stream = AudioPiped(link, audio_parameters=HighQualityAudio())
@@ -259,7 +258,7 @@ class Call(PyTgCalls):
             AudioVideoPiped(
                 file_path,
                 audio_parameters=HighQualityAudio(),
-                video_parameters=HighQualityVideo(),
+                video_parameters=MediumQualityVideo(),
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
@@ -296,14 +295,14 @@ class Call(PyTgCalls):
             stream = AudioVideoPiped(
                 link,
                 audio_parameters=HighQualityAudio(),
-                video_parameters=HighQualityVideo(),
+                video_parameters=MediumQualityVideo(),
             )
         else:
             stream = (
                 AudioVideoPiped(
                     link,
                     audio_parameters=HighQualityAudio(),
-                    video_parameters=HighQualityVideo(),
+                    video_parameters=MediumQualityVideo(),
                 )
                 if video
                 else AudioPiped(link, audio_parameters=HighQualityAudio())
@@ -378,7 +377,7 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         link,
                         audio_parameters=HighQualityAudio(),
-                        video_parameters=HighQualityVideo(),
+                        video_parameters=MediumQualityVideo(),
                     )
                 else:
                     stream = AudioPiped(
@@ -424,7 +423,7 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         file_path,
                         audio_parameters=HighQualityAudio(),
-                        video_parameters=HighQualityVideo(),
+                        video_parameters=MediumQualityVideo(),
                     )
                 else:
                     stream = AudioPiped(
@@ -459,7 +458,7 @@ class Call(PyTgCalls):
                     AudioVideoPiped(
                         videoid,
                         audio_parameters=HighQualityAudio(),
-                        video_parameters=HighQualityVideo(),
+                        video_parameters=MediumQualityVideo(),
                     )
                     if str(streamtype) == "video"
                     else AudioPiped(videoid, audio_parameters=HighQualityAudio())
@@ -485,7 +484,7 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         queued,
                         audio_parameters=HighQualityAudio(),
-                        video_parameters=HighQualityVideo(),
+                        video_parameters=MediumQualityVideo(),
                     )
                 else:
                     stream = AudioPiped(
@@ -557,7 +556,7 @@ class Call(PyTgCalls):
         return str(round(sum(pings) / len(pings), 3))
 
     async def start(self):
-        LOGGER(__name__).info("😋sᴛᴀʀᴛɪɴɢ ᴘʏᴛɢᴄᴀʟʟs ᴄʟɪᴇɴᴛ...\n")
+        LOGGER(__name__).info("Starting PyTgCalls Client...\n")
         if config.STRING1:
             await self.one.start()
         if config.STRING2:
