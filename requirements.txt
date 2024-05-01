@@ -26,7 +26,6 @@ qrcode
 pytz
 future==0.18.3
 search_engine_parser
-ntgcalls
 py-tgcalls==2.0.1
 pykeyboard
 pyshorteners
@@ -49,7 +48,6 @@ httpx==0.25.2
 gpytranslate
 openai==1.23.6
 pickledb
-python-telegram-bot==21.1.1
 img2pdf
 cloudscraper
 pycryptodome
