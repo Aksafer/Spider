@@ -2,7 +2,7 @@ import random
 from typing import Dict, List, Union
 
 from AlinaXIQ import userbot
-from AlinaXIQ.core.mongo import mongodb, pymongodb
+from AlinaXIQ.core.mongo import mongodb
 
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
