@@ -120,7 +120,7 @@ async def ctest(_, message):
     try:
      #  is_selected = await get_couple(cid, today)
      #  if not is_selected:
-         await app.send_reaction(chat_id, message_id, random.choice(emoji))
+         await app.send_reaction(cid, message_id, random.choice(emoji))
          msg = await message.reply_text("**دوو ئاشقە شێتەکە دیاری دەکرێت😂🙂🫶🏻!**")
          #GET LIST OF USERS
          list_of_users = []
