@@ -70,6 +70,79 @@ IQ_VIDS = [
 
 ]
 
+emoji = [
+    "👍",
+    "❤",
+    "🔥",
+    "🥰",
+    "👏",
+    "😁",
+    "🤔",
+    "🤯",
+    "😱",
+    "😢",
+    "🎉",
+    "🤩",
+    "🤮",
+    "💩",
+    "🙏",
+    "👌",
+    "🕊",
+    "🤡",
+    "🥱",
+    "🥴",
+    "😍",
+    "🐳",
+    "❤",
+    "‍🔥",
+    "🌚",
+    "🌭",
+    "💯",
+    "🤣",
+    "⚡",
+    "🏆",
+    "💔",
+    "🤨",
+    "😐",
+    "🍓",
+    "🍾",
+    "💋",
+    "😈",
+    "😴",
+    "😭",
+    "🤓",
+    "👻",
+    "👨‍💻",
+    "👀",
+    "🎃",
+    "🙈",
+    "😇",
+    "😨",
+    "🤝",
+    "✍",
+    "🤗",
+    "🫡",
+    "🎅",
+    "🎄",
+    "☃",
+    "💅",
+    "🤪",
+    "🗿",
+    "🆒",
+    "💘",
+    "🙉",
+    "🦄",
+    "😘",
+    "💊",
+    "🙊",
+    "😎",
+    "👾",
+    "🤷‍♂",
+    "🤷",
+    "🤷‍♀",
+    "😡",
+]
+loop = asyncio.get_running_loop()
 
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
@@ -94,7 +167,7 @@ async def start_pm(client, message: Message, _):
         # If more than the spam window time has passed, reset the command count and update the message timestamp
         user_command_count[user_id] = 1
         user_last_message_time[user_id] = current_time
-
+    await app.send_reaction(message.id, message.chat.id, random.choice(emoji))
     await add_served_user(message.from_user.id)
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
@@ -105,8 +178,11 @@ async def start_pm(client, message: Message, _):
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
+            await app.send_reaction(message.id, message.chat.id)
+            
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
+            await app.send_reaction(message.id, message.chat.id)
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
@@ -149,6 +225,8 @@ async def start_pm(client, message: Message, _):
                 caption=searched_text,
                 reply_markup=key,
             )
+            await asyncio.sleep(1)
+            await app.send_reaction(message.id, message.chat.id)
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
@@ -156,6 +234,7 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+        await app.send_reaction(message.id, message.chat.id)
         served_chats = len(await get_served_chats())
         served_users = len(await get_served_users())
         UP, CPU, RAM, DISK = await bot_sys_stats()
@@ -199,6 +278,7 @@ async def start_gp(client, message: Message, _):
         
     out = start_panel(_)
     BOT_UP = await bot_up_time()
+    await app.send_reaction(message.id, message.chat.id, random.choice(emoji))
     await message.reply_video(
         random.choice(IQ_VIDS),
         caption=_["start_1"].format(app.mention, BOT_UP),
