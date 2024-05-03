@@ -9,7 +9,7 @@ from AlinaXIQ.core.call import Alina
 # vc on
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
-       await message.reply("<b>• ئەدمین هەڵسا بە کردنەوەی تێل ⎋</b>")
+       await message.reply("<b>• ئەدمین تێلی کردەوە وەرن ⎋</b>")
        
 @app.on_message(filters.video_chat_ended)
 async def brah2(client, message):
