@@ -149,6 +149,8 @@ loop = asyncio.get_running_loop()
 @LanguageStart
 async def start_pm(client, message: Message, _):
     user_id = message.from_user.id
+    chat_id = message.chat.id
+    message_id = message.id
     current_time = time()
     # Update the last message timestamp for the user
     last_message_time = user_last_message_time.get(user_id, 0)
@@ -159,6 +161,7 @@ async def start_pm(client, message: Message, _):
         user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
         if user_command_count[user_id] > SPAM_THRESHOLD:
             # Block the user if they exceed the threshold
+            await app.send_reaction(chat_id, message_id, random.choice(emoji))
             hu = await message.reply_text(f"**🧑🏻‍💻┋ {message.from_user.mention} بۆت سپام مەکە بەڕێز\n🧑🏻‍💻┋ پێنج چرکە بوەستە**")
             await asyncio.sleep(3)
             await hu.delete()
@@ -167,6 +170,7 @@ async def start_pm(client, message: Message, _):
         # If more than the spam window time has passed, reset the command count and update the message timestamp
         user_command_count[user_id] = 1
         user_last_message_time[user_id] = current_time
+    await app.send_reaction(chat_id, message_id)
     await add_served_user(message.from_user.id)
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
@@ -177,9 +181,11 @@ async def start_pm(client, message: Message, _):
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
-            
+            return await app.send_reaction(chat_id, message_id)
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
+            await asyncio.sleep(3)
+            await app.send_reaction(chat_id, message_id)
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
@@ -222,6 +228,8 @@ async def start_pm(client, message: Message, _):
                 caption=searched_text,
                 reply_markup=key,
             )
+            await asyncio.sleep(3)
+            await app.send_reaction(chat_id, message_id)
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
@@ -229,6 +237,7 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+        await app.send_reaction(chat_id, message_id)
         served_chats = len(await get_served_chats())
         served_users = len(await get_served_users())
         UP, CPU, RAM, DISK = await bot_sys_stats()
@@ -250,6 +259,8 @@ async def start_pm(client, message: Message, _):
 @LanguageStart
 async def start_gp(client, message: Message, _):
     user_id = message.from_user.id
+    chat_id = message.chat.id
+    message_id = message.id
     current_time = time()
     
     # Update the last message timestamp for the user
@@ -261,6 +272,7 @@ async def start_gp(client, message: Message, _):
         user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
         if user_command_count[user_id] > SPAM_THRESHOLD:
             # Block the user if they exceed the threshold
+            await app.send_reaction(chat_id, message_id, random.choice(emoji))
             hu = await message.reply_text(f"**🧑🏻‍💻┋ {message.from_user.mention} بۆت سپام مەکە بەڕێز\n🧑🏻‍💻┋ پێنج چرکە بوەستە**")
             await asyncio.sleep(3)
             await hu.delete()
@@ -272,6 +284,7 @@ async def start_gp(client, message: Message, _):
         
     out = start_panel(_)
     BOT_UP = await bot_up_time()
+    await app.send_reaction(chat_id, message_id)
     await message.reply_video(
         random.choice(IQ_VIDS),
         caption=_["start_1"].format(app.mention, BOT_UP),
