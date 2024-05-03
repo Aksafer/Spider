@@ -55,8 +55,24 @@ async def huhh(client: Client, message: Message):
     )
 
 
-
-@app.on_message(filters.command(["ڕێکخەری بۆت", "/bot","بۆتی گۆرانی","بۆت", "ڕێکخەر","/maker"], ""))
+@app.on_message(command(["bot", "بۆت", "بوت"]) & filters.group)
+async def iqbot(client: Client, message: Message):
+    await message.reply_photo(
+        photo=f"https://graph.org/file/426283f861812c31153d1.jpg",
+        caption=f"""**• باشترین بۆتی گۆرانی بۆ کورد**\n\n**• پاراستن و داگرتن و وەڵامدانەوە\n\n**• 𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋 -› [𝑴𝒖𝒉𝒂𝒎𝒎𝒆𝒅](t.me/IQ7amo)**\n**• 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 -› [𝑺𝒐𝒖𝒓𝒄𝒆 𝑨𝒍𝒊𝒏𝒂](t.me/MGIMT)**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "◌sᴏᴜʀᴄᴇ ᴀʟɪɴᴀ◌", url=f"https://t.me/MGIMT"),
+                ], [
+                InlineKeyboardButton(
+                    "• زیادم بکە بۆ گرووپت 🎻", url=f"https://t.me/IQMCBOT?startgroup=true"),
+            ],
+            ]
+        ),
+    )
+@app.on_message(filters.command(["ڕێکخەری بۆت", "/bot","بۆتی گۆرانی", "ڕێکخەر","/maker"], ""))
 async def huhh(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://graph.org/file/4eb53a4a6d8cba7efb4f9.jpg",
