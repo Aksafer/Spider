@@ -113,14 +113,11 @@ today = str(dt()[0])
 @app.on_message(command(["/couples", "kapl", "قل", "کەپل", "کەپڵ"]) & ~BANNED_USERS)
 async def ctest(_, message):
     cid = message.chat.id
-    message_id = message.id
     if message.chat.type == ChatType.PRIVATE:
-        await app.send_reaction(cid, message_id, random.choice(emoji))
         return await message.reply_text("**تەنیا لە گرووپ کارەکات😂🙂**")
     try:
      #  is_selected = await get_couple(cid, today)
      #  if not is_selected:'
-         await app.send_reaction(cid, message_id)
          msg = await message.reply_text("**دوو ئاشقە شێتەکە دیاری دەکرێت😂🙂🫶🏻!**")
          #GET LIST OF USERS
          list_of_users = []
