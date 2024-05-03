@@ -13,7 +13,6 @@ blockeddb = mongodb.blockedusers
 chatsdb = mongodb.chats
 channeldb = mongodb.cplaymode
 countdb = mongodb.upcount
-clonebotdb = pymongodb.clonebotdb
 gbansdb = mongodb.gban
 langdb = mongodb.language
 onoffdb = mongodb.onoffper
