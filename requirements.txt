@@ -30,7 +30,7 @@ ntgcalls
 py-tgcalls==0.9.7
 pykeyboard
 pyshorteners
-pyrogram==2.0.106
+git+https://github.com/KurimuzonAkuma/pyrogram@dev
 pymongo==4.6.2
 python-dotenv
 pyyaml==6.0.1
