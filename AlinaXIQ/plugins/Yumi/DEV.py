@@ -259,3 +259,58 @@ async def sticker_image(client: Client, message: Message):
 async def vgdg(client: Client, message: Message):
     await message.reply_text(
         f"""•⎆┊** ناوت 🔥♥**»»  {message.from_user.mention()}""") 
+
+
+
+@app.on_message(filters.command("", "."))
+def vgdg(client, message):
+    message.reply_text(
+        f"""**✧ 𝖶𝖾𝗅𝖼𝗈𝗆𝖾 𝖡𝖺𝖻𝗒,
+𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋 -› [𝑴𝒖𝒉𝒂𝒎𝒎𝒆𝒅 ♪](t.me/IQ7amo)
+𝖢𝗁𝖺𝗇𝗇𝖾𝗅 -› [𝑺𝒐𝒖𝒓𝒄𝒆 𝑨𝒍𝒊𝒏𝒂](t.me/MGIMT)**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "نوێکارییەکانی ئەلینا 🍻", url=f"t.me/MGIMT")
+                ]
+            ]
+        ),
+        disable_web_page_preview=True
+
+    )
+
+
+@app.on_message(command(
+    ["link delet", "لینکی سرینەوە", "لینکی سڕینەوە", "بەستەری سڕینەوە", "سووتاندنی ئەکاونت", "سوتاندن", "سووتاندن"]))
+async def delet(client: Client, message: Message):
+    await message.reply_text(
+        f"""**• بەخێربێی ئەزیزم\n-› ئەمانە لینکی سووتاندنی سۆشیاڵ میدیان لەگەڵ بۆتێکی سووتاندنی تێلەگرام**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "• 𝖳𝖾𝗅𝖾𝗀𝗋𝖺𝗆 •", url=f"https://my.telegram.org/auth?to=delete"),
+                    InlineKeyboardButton(
+                        "• 𝖳𝖾𝗅𝖾𝗀𝗋𝖺𝗆 𝖡𝗈𝗍 •", url=f"https://t.me/IQDLBOT"),
+                ], [
+                InlineKeyboardButton(
+                    "• 𝖨𝗇𝗌𝗍𝖺𝗀𝗋𝖺𝗆 •",
+                    url=f"https://www.instagram.com/accounts/login/?next=/accounts/remove/request/permanent/"),
+            ], [
+                InlineKeyboardButton(
+                    "• 𝖲𝗇𝖺𝗉𝖢𝗁𝖺𝗍 •",
+                    url=f"https://accounts.snapchat.com/accounts/login?continue=https%3A%2F%2Faccounts.snapchat.com%2Faccounts%2Fdeleteaccount"),
+                InlineKeyboardButton(
+                    "• 𝖥𝖺𝖼𝖾𝖡𝗈𝗈𝗄 •", url=f"https://www.faecbook.com/help/deleteaccount"),
+            ], [
+                InlineKeyboardButton(
+                    "• 𝖳𝗐𝗂𝗍𝗍𝖾𝗋 •", url=f"https://mobile.twitter.com/settings/deactivate"),
+            ], [
+                InlineKeyboardButton(
+                    "نوێکارییەکانی ئەلینا 🍻", url=f"https://t.me/MGIMT"),
+
+            ],
+            ]
+        ),
+        )
