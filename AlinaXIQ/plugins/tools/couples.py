@@ -1,5 +1,7 @@
 import os 
+import asyncio
 import random
+import time
 from datetime import datetime 
 from telegraph import upload_file
 from PIL import Image , ImageDraw
@@ -11,6 +13,82 @@ from config import BANNED_USERS
 #BOT FILE NAME
 from AlinaXIQ import app as app
 from AlinaXIQ.mongo.couples_db import _get_image, get_couple
+
+
+emoji = [
+    "👍",
+    "❤",
+    "🔥",
+    "🥰",
+    "👏",
+    "😁",
+    "🤔",
+    "🤯",
+    "😱",
+    "😢",
+    "🎉",
+    "🤩",
+    "🤮",
+    "💩",
+    "🙏",
+    "👌",
+    "🕊",
+    "🤡",
+    "🥱",
+    "🥴",
+    "😍",
+    "🐳",
+    "❤",
+    "‍🔥",
+    "🌚",
+    "🌭",
+    "💯",
+    "🤣",
+    "⚡",
+    "🏆",
+    "💔",
+    "🤨",
+    "😐",
+    "🍓",
+    "🍾",
+    "💋",
+    "😈",
+    "😴",
+    "😭",
+    "🤓",
+    "👻",
+    "👨‍💻",
+    "👀",
+    "🎃",
+    "🙈",
+    "😇",
+    "😨",
+    "🤝",
+    "✍",
+    "🤗",
+    "🫡",
+    "🎅",
+    "🎄",
+    "☃",
+    "💅",
+    "🤪",
+    "🗿",
+    "🆒",
+    "💘",
+    "🙉",
+    "🦄",
+    "😘",
+    "💊",
+    "🙊",
+    "😎",
+    "👾",
+    "🤷‍♂",
+    "🤷",
+    "🤷‍♀",
+    "😡",
+]
+loop = asyncio.get_running_loop()
+
 
 def dt():
     now = datetime.now()
@@ -36,10 +114,12 @@ today = str(dt()[0])
 async def ctest(_, message):
     cid = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
+        await app.send_reaction(message.id, message.chat.id, random.choice(emoji))
         return await message.reply_text("**تەنیا لە گرووپ کارەکات😂🙂**")
     try:
      #  is_selected = await get_couple(cid, today)
-     #  if not is_selected:
+     #  if not is_selected:'
+         await app.send_reaction(message.id, message.chat.id)
          msg = await message.reply_text("**دوو ئاشقە شێتەکە دیاری دەکرێت😂🙂🫶🏻!**")
          #GET LIST OF USERS
          list_of_users = []
