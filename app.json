@@ -23,32 +23,52 @@
         "required": true
       },
       "BOT_TOKEN": {
-        "description": "تـوكـن الــبــوت",
+        "description": "A Bot's token from Botfather",
+        "value": "",
+        "required": true
+      },
+      "BOT_NAME": {
+        "description": "A Bot's name from your bot",
+        "value": "",
+        "required": true
+      },
+      "ASSUSERNAME": {
+        "description": "A Bot's ass from your assistant account",
+        "value": "",
+        "required": true
+      },
+      "BOT_USERNAME": {
+        "description": "A Bot's ass from your assistant account",
+        "value": "",
+        "required": true
+      },
+      "MONGO_DB_URI": {
+        "description": "Get a mongodb url from https://cloud.mongodb.com.",
         "value": "",
         "required": true
       },
       "OWNER_ID": {
-        "description": "ايـدي مـطـور الـبـوت.",
+        "description": "The user id of user whom you would like to add as OWNER.",
         "value": "",
         "required": true
       },
       "STRING_SESSION": {
-        "description": "جـلـسـة الـبـيـروجـرام بـتـاع الـحـسـاب الـمـسـاعـد.",
+        "description": "A Pyrogram v2 String Session from @STRINGSEASO_NBOT on Telegram.",
         "value": "",
         "required": true
       },
       "HEROKU_API_KEY": {
-        "description": "اسـم حـسـاب هـيـروكـو",
+        "description": "Your Heroku account's API key",
         "value": "",
         "required": false
       },
       "HEROKU_APP_NAME": {
-        "description": "اسـم الـمـسـتـخـدم الـلـي كتـبـو فوق",
+        "description": "Your heroku app name",
         "value": "",
         "required": false
       },
       "LOGGER_ID": {
-        "description": "ايـدي جـروب الـتـخـذيـن.",
+        "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
         "value": "",
         "required": true
       }
