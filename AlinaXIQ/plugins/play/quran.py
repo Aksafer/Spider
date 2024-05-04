@@ -23,7 +23,7 @@ async def quran(c,msg):
     keyboard.append([ikb("• التالي •", callback_data = "next-1")])
     keyboard.append([ikb("قـنـاه الـسـورس", url=f"https://t.me/YU_CQ")])
     video=f"https://telegra.ph/file/39ee458993b40a8a9a9b9.mp4"
-    await msg.reply_video(video=video, caption=f"**◗⋮◖ [⧉• 𝙎𝙊𝙐𝙍𝘾 𝙀𝙀𝙍𝙊𝙍 - إذاعة القرآن](t.me/YU_CQ)\n⋆┄─┄─┄─┄─┄─┄─┄─┄⋆\n◗⋮◖ اهلا عزيزي {msg.from_user.mention}\n◗⋮◖ لقسم إذاعة القرآن الكريم**", reply_markup = ikm(keyboard))
+    await msg.reply_video(video=video, caption=f"**◗⋮◖ [⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - إذاعة القرآن](t.me/YU_CQ)\n⋆┄─┄─┄─┄─┄─┄─┄─┄⋆\n◗⋮◖ اهلا عزيزي {msg.from_user.mention}\n◗⋮◖ لقسم إذاعة القرآن الكريم**", reply_markup = ikm(keyboard))
 
 @app.on_callback_query(filters.regex("next") & ~BANNED_USERS)
 async def next_quran(c,cq):
