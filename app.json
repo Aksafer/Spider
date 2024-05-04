@@ -1,75 +1,45 @@
 {
-    "name": "𝙄𝙌 𝙈𝙐𝙎𝙄𝘾 ♥️•",
-    "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-    "logo": "https://graph.org/file/5eb96c4141db368f17b84.jpg",
+    "name": "ميـوزك ايــرور",
+    "description": "- لـ تشغيـل الاغانـي والفيديـو وبث المباشـرة فـي المكالمـات الصوتيـه والمرئيـة عـلى تيليجــرام",
+    "logo": "https://telegra.ph/file/9583dc824fca5006ef440.jpg",
     "keywords": [
     "python3",
     "telegram",
     "bot",
-    "iq",
+    "Zelzal",
     "MusicBot",
     "telegram-bot",
     "pyrogram"
     ],
     "env": {
-      "API_ID": {
-        "description": "Get this value from https://my.telegram.org",
-        "value": "",
-        "required": true
-      },
-      "API_HASH": {
-        "description": "Get this value from https://my.telegram.org",
-        "value": "",
-        "required": true
-      },
       "BOT_TOKEN": {
-        "description": "A Bot's token from Botfather",
-        "value": "",
-        "required": true
-      },
-      "BOT_NAME": {
-        "description": "A Bot's name from your bot",
-        "value": "",
-        "required": true
-      },
-      "ASSUSERNAME": {
-        "description": "A Bot's ass from your assistant account",
-        "value": "",
-        "required": true
-      },
-      "BOT_USERNAME": {
-        "description": "A Bot's ass from your assistant account",
-        "value": "",
-        "required": true
-      },
-      "MONGO_DB_URI": {
-        "description": "Get a mongodb url from https://cloud.mongodb.com.",
+        "description": "⦗ @Botfather ⦘ ↫ تـــوكـــن الـبـوت",
         "value": "",
         "required": true
       },
       "OWNER_ID": {
-        "description": "The user id of user whom you would like to add as OWNER.",
+        "description": "⦗ ايـــدي المطـــور ⦘ ↫ مطـــور بـــوت الميـــوزك",
         "value": "",
         "required": true
       },
       "STRING_SESSION": {
-        "description": "A Pyrogram v2 String Session from @STRINGSEASO_NBOT on Telegram.",
+        "description": "⦗ V2 ⦘ ↫ كـود جلسـة الحسـاب المساعـد لـ الميـوزك",
         "value": "",
         "required": true
       },
       "HEROKU_API_KEY": {
-        "description": "Your Heroku account's API key",
+        "description": "⦗ https://dashboard.heroku.com/account ⦘ ادخـل كود ايبـي كـي",
         "value": "",
         "required": false
       },
       "HEROKU_APP_NAME": {
-        "description": "Your heroku app name",
+        "description": "⦗ اســـم التطبيـــق - نفـس اول مربـع بالقائمـة نسـخ لصـق حـروف انكلـش سمــول ⦗ صغيـره فقـط",
         "value": "",
         "required": false
       },
       "LOGGER_ID": {
-        "description": "Your Log Group ID, add your bot and promote as an admin with full rights!. Channel ki id mat daal dena bsdk.",
-        "value": "",
+        "description": "ايـدي قروب السـجل",
+        "value": "-100",
         "required": true
       }
     },
@@ -84,5 +54,11 @@
               "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
           }
       ],
+      "formation": {
+          "worker": {
+              "quantity": 1,
+              "size": "basic"
+          }
+      },
       "stack": "container"
   }
