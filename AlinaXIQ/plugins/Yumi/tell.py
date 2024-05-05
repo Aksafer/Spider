@@ -29,19 +29,19 @@ async def get_group_call(
             ).full_chat
         if full_chat is not None:
             return full_chat.call
-    await app.send_message(f"**هیچ تێلێك لە گرووپ نەکراوەتەوە** {err_msg}")
+    await app.send_message(f"**لم يتم إجراء أي مكالمات إلى المجموعة** {err_msg}")
     return False
 
-@app.on_message(command(["/open", "کردنەوەی تێل", "کردنەوەی تیل"]) & admin_filter & ~filters.private)
+@app.on_message(command(["/open", "افتح كول", "فتح كول"]) & admin_filter & ~filters.private)
 async def start_group_call(c: Client, m: Message):
     chat_id = m.chat.id
     assistant = await get_assistant(chat_id)
     ass = await assistant.get_me()
     assid = ass.id
     if assistant is None:
-        await app.send_message(chat_id, "هەڵە لە یارمەتیدان")
+        await app.send_message(chat_id, "خطأ في المساعدة")
         return
-    msg = await app.send_message(chat_id, "•⎆┊**تێل دەکرێتەوە ...♥️•**")
+    msg = await app.send_message(chat_id, "•⎆┊**أخبرني مرة أخرى...♥**")
     try:
         peer = await assistant.resolve_peer(chat_id)
         await assistant.invoke(
@@ -53,7 +53,7 @@ async def start_group_call(c: Client, m: Message):
                 random_id=assistant.rnd_id() // 9000000000,
             )
         )
-        await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل کرایەوە♥️⚡️•**")
+        await msg.edit_text("•⎆┊**تم فتح الكول بنجاح♥⚡️•**")
     except ChatAdminRequired:
       try:    
         await app.promote_chat_member(chat_id, assid, privileges=ChatPrivileges(
@@ -84,29 +84,29 @@ async def start_group_call(c: Client, m: Message):
             can_pin_messages=False,
             ),
         )                              
-        await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل کرایەوە♥️⚡️•**")
+        await msg.edit_text("•⎆┊**تم فتح الكول بنجاح♥⚡️•**")
       except:
-         await msg.edit_text("•⎆┊**با بۆتەکە ڕۆڵی ئەوەی هەبێت کە ئەدمین زیاد بکات و کۆنترۆڵی تێل بکات یان ڕێگە بە یاریدەدەرەکە بدات و هەوڵ بدات🕷•**")
+         await msg.edit_text("•⎆┊**ضع البوت يلعب دور إضافة مسؤول والتحكم في المكالمه أو السماح للمساعد بالمحاولة🕷•**")
         
-@app.on_message(command(["/close", "داخستنی تێل", "داخستنی تیل"]) & admin_filter & ~filters.private)
+@app.on_message(command(["/close", "اقفل كول", "قفل كول"]) & admin_filter & ~filters.private)
 async def stop_group_call(c: Client, m: Message):
     chat_id = m.chat.id
     assistant = await get_assistant(chat_id)
     ass = await assistant.get_me()
     assid = ass.id
     if assistant is None:
-        await app.send_message(chat_id, "هەڵە لە یارمەتیدان")
+        await app.send_message(chat_id, "خطأ في المساعدة")
         return
-    msg = await app.send_message(chat_id, "•⎆┊**تێل دادەخرێت .. ♥️•**")
+    msg = await app.send_message(chat_id, "•⎆┊**الهاتف مغلق .. ♥ .**")
     try:
         if not (
            group_call := (
-               await get_group_call(assistant, m, err_msg="•⎆┊**تێلی گرووپ کۆتایی پێھاتبوو♥️•**")
+               await get_group_call(assistant, m, err_msg="⎆┊**انتهى التلي جروب ♥•**")
            )
         ):  
            return
         await assistant.invoke(DiscardGroupCall(call=group_call))
-        await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل داخرا♥️⚡️•**")
+        await msg.edit_text("•⎆┊**تم قفل الكول بنجاح♥⚡️•**")
     except Exception as e:
       if "GROUPCALL_FORBIDDEN" in str(e):
        try:    
@@ -121,7 +121,7 @@ async def stop_group_call(c: Client, m: Message):
          )
          if not (
            group_call := (
-               await get_group_call(assistant, m, err_msg="•⎆┊**تێلی گرووپ کۆتایی پێھاتبوو♥️•**")
+               await get_group_call(assistant, m, err_msg="•⎆┊**انتهى التلي جروب ♥•**")
            )
          ):  
            return
@@ -135,7 +135,7 @@ async def stop_group_call(c: Client, m: Message):
             can_pin_messages=False,
             ),
          )                              
-         await msg.edit_text("•⎆┊**بە سەرکەوتوویی تێل داخرا♥️⚡️•**")
+         await msg.edit_text("•⎆┊**تم قفل الكول بنجاح♥⚡️•**")
        except:
-         await msg.edit_text("•⎆┊**با بۆتەکە ڕۆڵی ئەوەی هەبێت کە ئەدمین زیاد بکات و کۆنترۆڵی تێل بکات یان ڕێگە بە یاریدەدەرەکە بدات و هەوڵ بدات🕷•**")
+         await msg.edit_text("•⎆┊**ضع البوت يلعب دور إضافة مسؤول والتحكم في المكالمه أو السماح للمساعد بالمحاولة🕷•**")
     
