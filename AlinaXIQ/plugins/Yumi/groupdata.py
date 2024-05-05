@@ -6,7 +6,7 @@ from pyrogram import enums, filters
 from strings.filters import command
 from AlinaXIQ import app
 
-@app.on_message(~filters.private & command(["/gdata","داتای گرووپ","gdata","پشکنینی گرووپ"]), group=2)
+@app.on_message(~filters.private & command(["/gdata","فحص الجروب","gdata","بيانات الجروب"]), group=2)
 async def instatus(app, message):
     start_time = time.perf_counter()
     user = await app.get_chat_member(message.chat.id, message.from_user.id)
@@ -15,7 +15,7 @@ async def instatus(app, message):
         enums.ChatMemberStatus.ADMINISTRATOR,
         enums.ChatMemberStatus.OWNER,
     ):
-        sent_message = await message.reply_text("**هێنانی داتایی گرووپ . .**")
+        sent_message = await message.reply_text("**جلب بيانات المجموعة . .**")
         deleted_acc = 0
         premium_acc = 0
         banned = 0
@@ -37,16 +37,16 @@ async def instatus(app, message):
         timelog = "{:.2f}".format(end_time - start_time)
         await sent_message.edit(f"""
 **➖➖➖➖➖➖➖
-➲ ناو : {message.chat.title} ✅
-➲ ئەندام : [ {count} ]🫂
+➲ اسم : {message.chat.title} ✅
+➲ الاعضاء : [ {count} ]🫂
 ➖➖➖➖➖➖➖
-➲ بۆتەکان : {bot}💡
-➲ ئەکاونتی سووتاو : {deleted_acc}🧟
-➲ باندکراوەکان : {banned}🚫
-➲ بەکارهێنەری پریمیوم : {premium_acc}🎁
+➲ البوتات : {bot}💡
+➲ الحسابات المحروقه : {deleted_acc}🧟
+➲ المحظورين : {banned}🚫
+➲ الاعضاء المميزه : {premium_acc}🎁
 ➖➖➖➖➖➖➖
-کاتی خایەنراو : {timelog} S**""")
+الوقت المستغرق : {timelog} **""")
     else:
-        sent_message = await message.reply_text("**تەنیا ئەدمینەکان دەتوانن!**")
+        sent_message = await message.reply_text("**يمكن للمسؤولين فقط!**")
         await sleep(5)
         await sent_message.delete()
