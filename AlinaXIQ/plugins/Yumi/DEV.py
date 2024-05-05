@@ -65,7 +65,7 @@ async def yas(client, message):
     usr = await client.get_chat("Y_D_ll")
     name = usr.first_name
     photo = await app.download_media(usr.photo.big_file_id)
-    await message.reply_photo(photo,       caption=f"**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - المصادر الذكية 🧑🏻‍💻](t.me/YU_CQ)\nمعرفة مطور السورس\n↜︙𝐍𝐀𝐌𝐄 ↬:{name}\n↜︙𝐔𝐒𝐄𝐑 ↬ :@{usr.username}\n↜︙𝐈𝐃 ↬ :`{usr.id}`\n↜︙𝐁𝐈𝐎 ↬: {usr.bio}**",
+    await message.reply_photo(photo,       caption=f"**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - مطور 🧑🏻‍💻](t.me/YU_CQ)\nمعرفة مطور السورس\n↜︙𝐍𝐀𝐌𝐄 ↬:{name}\n↜︙𝐔𝐒𝐄𝐑 ↬ :@{usr.username}\n↜︙𝐈𝐃 ↬ :`{usr.id}`\n↜︙𝐁𝐈𝐎 ↬: {usr.bio}**",
     reply_markup=InlineKeyboardMarkup(
             [
                 [
