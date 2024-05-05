@@ -24,7 +24,7 @@ from pyrogram.enums import ParseMode, ChatMemberStatus
 async def huhh(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://graph.org/file/b4ace5c5aec2901efed59.jpg",
-        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 المطور](t.me/YU_CQ)**\n••┉┉┉┉┉••🝢••┉┉┉┉┉••\n**أهلا بكم في عزيزي{message.from_user.mention} لقسم المطورين لها بوت•**\n**اتصل بنا بخصوص أي مشاكل وأسئلةە گەشەپێدەر بکە من خلال الأزرار ♥•**""",
+        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 المطور](t.me/YU_CQ)**\n••┉┉┉┉┉••🝢••┉┉┉┉┉••\n**أهلا بك عزيزي{message.from_user.mention} في قسم مطورين السورس**\n**اتواصل بنا لو في اي مشاكل عندك من خلال الازرار♥•**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -39,7 +39,7 @@ async def huhh(client: Client, message: Message):
                     
                 
                     InlineKeyboardButton(
-                        "𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
+                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
                 
         ],[
                     
