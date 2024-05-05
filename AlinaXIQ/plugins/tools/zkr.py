@@ -130,7 +130,7 @@ azkar1 = [
 "الَلَهّمً ردٍنِا إلَيَکْ ردٍا جّمًيَلَا💔🥺"
    ]
 
-@app.on_message(filters.command(["زکری بەیانیان", "زکر"], ""))
+@app.on_message(filters.command(["اذكار الصباح", "اذكار"], ""))
 async def axkary(c, msg):
     bar = random.choice(azkar1)
     await msg.reply_text(f"**{bar}**", disable_web_page_preview=True)
@@ -139,18 +139,18 @@ async def axkary(c, msg):
 chat = []
 @app.on_message(filters.group, group = 768)
 async def azkarr(c, msg):
-  if msg.text == "کردنەوەی زکر":
+  if msg.text == "فتح الاذكار":
     if msg.chat.id in chat:
-      return await msg.reply_text("**زکر پێشتر کراوەتەوە♥️✅•**")
+      return await msg.reply_text("**تم فتح الاذكار بالفعل ♥✅•**")
     else:
       chat.append(msg.chat.id)
-      return await msg.reply_text("**بە سەرکەوتوویی فەرمانی زکر کرایەوە♥️✅•**")
-  elif msg.text == "داخستنی زکر":
+      return await msg.reply_text("**تم فتح أمر الأذكار بنجاح✅•**")
+  elif msg.text == "قفل الاذكار":
     if msg.chat.id in chat:
       chat.remove(msg.chat.id)
-      return await msg.reply_text("**بە سەرکەوتوویی فەرمانی زکر داخرا♥️❎•**")
+      return await msg.reply_text("**تم إغلاق أمر الأذكار بنجاح ♥❎•**")
     else:
-      return await msg.reply_text("**زکر پێشتر داخراوە♥️❎•**")
+      return await msg.reply_text("**الاذكار مغلق بالفعل ♥❎•**")
       
 
 
