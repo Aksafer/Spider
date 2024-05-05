@@ -3,10 +3,10 @@ from pyrogram.types import Message
 from strings.filters import command
 from AlinaXIQ import app
 
-@app.on_message(command(["groupinfo","زانیاری"]))
+@app.on_message(command(["groupinfo","كشف"]))
 async def get_group_status(_, message: Message):
     if len(message.command) != 2:
-        await message.reply("**فەرمان بنووسە لەگەڵ یوزەری گرووپ یان کەناڵ\nنموونە:**\n`/ginfo , زانیاری @username`")
+        await message.reply("**اكتب الأمر مع مجموعة المستخدمين أو القناة\nمثال:**\n`/ginfo , معرفة @username`")
         return
     
     group_username = message.command[1]
@@ -14,7 +14,7 @@ async def get_group_status(_, message: Message):
     try:
         group = await app.get_chat(group_username)
     except Exception as e:
-        await message.reply(f"**➲ هەڵە: {e}**")
+        await message.reply(f"**➲ خطأ: {e}**")
         return
     
     total_members = await app.get_chat_members_count(group.id)
@@ -23,11 +23,11 @@ async def get_group_status(_, message: Message):
 
     response_text = (
         f"**➖➖➖➖➖➖➖\n**"
-        f"**➲ ناو : {group.title} ✅\n\n**"
-        f"**➲ ئایدی :** `{group.id}`\n"
-        f"**➲ ئەندام : {total_members}\n**"
-        f"**➲ بایۆ : {group_description or 'N/A'}\n\n**"
-        f"**➲ یوزەر : @{group_username}\n**"
+        f"**➲ اسم : {group.title} ✅\n\n**"
+        f"**➲ الايدي :** `{group.id}`\n"
+        f"**➲ الاعضاء : {total_members}\n**"
+        f"**➲ بايو : {group_description or 'N/A'}\n\n**"
+        f"**➲ يوزر : @{group_username}\n**"
        
         f"➖➖➖➖➖➖➖"
     )
