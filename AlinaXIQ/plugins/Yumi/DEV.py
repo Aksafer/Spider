@@ -56,7 +56,6 @@ async def huhh(client: Client, message: Message):
 
 
 @app.on_message(command(["bot", "بوت", "بوت"]) & filters.group)
-async@app.on_message(command(["bot", "بوت", "بوت"]) & filters.group)
 async def iqbot(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://graph.org/file/426283f861812c31153d1.jpg",
@@ -72,6 +71,7 @@ async def iqbot(client: Client, message: Message):
             ],
             ]
         ),
+    )
                 
 
 @app.on_message(
