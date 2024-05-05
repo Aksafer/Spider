@@ -115,7 +115,7 @@ def welcomepic(pic, user, chatname, id, uname, brightness_factor=1.3):
 
 @app.on_message(filters.command(["welcome", "wel"]) & ~filters.private)
 async def auto_state(_, message):
-    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
+    usage = "**يستخدم:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -128,20 +128,20 @@ async def auto_state(_, message):
         state = message.text.split(None, 1)[1].strip().lower()
         if state == "off":
             if A:
-                await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
+                await message.reply_text("**الترحيب معطل بالفعل**")
             else:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
+                await message.reply_text(f"**تم تعطيل الترحيب {message.chat.title}**")
         elif state == "on":
             if not A:
-                await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
+                await message.reply_text("**تم تمكين الترحيب بالفعل**")
             else:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"**بەخێرهاتن چالاککرا لە {message.chat.title}**")
+                await message.reply_text(f"**تم تفعيل الترحيب {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
+        await message.reply("**تمكين أمر الترحيب للمسؤولين فقط**")
 
 
 
@@ -173,14 +173,14 @@ async def greet_new_member(_, member: ChatMemberUpdated):
             welcomeimg = welcomepic(
                 pic, user.first_name, member.chat.title, user.id, user.username
             )
-            button_text = "๏ زیادم بکە کەناڵت ๏"
-            add_button_text = "نوێکارییەکانی ئەلینا 🍻"
+            button_text = "๏ أضفني إلى قناتك ๏"
+            add_button_text = "قـنـاة الـسـورس 🍻"
             deep_link = f"https://t.me/{app.username}?startchannel=true"
-            add_link = f"https://t.me/MGIMT"
+            add_link = f"https://t.me/YU_CQ"
             temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
-                caption=f"""**◗⋮◖ بەخێربێی ئەزیزم {user.mention}\n◗⋮◖ بۆ گرووپ 💎.**""",
+                caption=f"""**◗⋮◖ اهلا بك عزيزي {user.mention}\n◗⋮◖ نورت الجروب 💎.**""",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton(button_text, url=deep_link)],
                     [InlineKeyboardButton(text=add_button_text, url=add_link)],
