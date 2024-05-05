@@ -39,7 +39,7 @@ async def huhh(client: Client, message: Message):
                     
                 
                     InlineKeyboardButton(
-                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
+                        "𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
                 
         ],[
                     
