@@ -39,7 +39,7 @@ async def huhh(client: Client, message: Message):
                     
                 
                     InlineKeyboardButton(
-                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
+                        "𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
                 
         ],[
                     
@@ -56,10 +56,11 @@ async def huhh(client: Client, message: Message):
 
 
 @app.on_message(command(["bot", "بوت", "بوت"]) & filters.group)
+async@app.on_message(command(["bot", "بوت", "بوت"]) & filters.group)
 async def iqbot(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://graph.org/file/426283f861812c31153d1.jpg",
-        caption=f"""**• أفضل بوت أغنية**\n\n**• پاراستن و تحميل والرد\n\n**• 𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋 -› [مـطـور الـسـورس](t.me/Y_D_ll)**\n**• 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 -› [قـنـاة الـسـورس](t.me/YU_CQ)**""",
+        caption=f"""**• أفضل بوت ميوزك**\n\n**• البوت يعمل بي شكل رائع\n\n**• 𝖣𝖾𝗏𝖾𝗅𝗈𝗉𝖾𝗋 -› [مـطـور الـسـورس](t.me/Y_D_ll)**\n**• 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 -› [قـنـاة الـسـورس](t.me/YU_CQ)**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -71,8 +72,7 @@ async def iqbot(client: Client, message: Message):
             ],
             ]
         ),
-    )
-
+                
 
 @app.on_message(
     command(["مطور السورس"])
