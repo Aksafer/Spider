@@ -9,7 +9,7 @@ def figle(text):
     x = pyfiglet.FigletFont.getFonts()
     font = choice(x)
     figled = str(pyfiglet.figlet_format(text,font=font))
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="گۆڕین", callback_data="figlet"),InlineKeyboardButton(text="داخستن", callback_data="close_reply")]])
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="يحول", callback_data="figlet"),InlineKeyboardButton(text="تحت", callback_data="close_reply")]])
     return figled, keyboard
 
 @app.on_message(filters.command("figlet"))
@@ -20,7 +20,7 @@ async def echo(bot, message):
     except IndexError:
         return await message.reply_text("Example:\n\n`/figlet IQ`")
     kul_text, keyboard = figle(text)
-    await message.reply_text(f"ئەمە شێوازەکەیە :\n<pre>{kul_text}</pre>", quote=True, reply_markup=keyboard)
+    await message.reply_text(f"هذه هي الطريقة :\n<pre>{kul_text}</pre>", quote=True, reply_markup=keyboard)
 
 @app.on_callback_query(filters.regex("figlet"))
 async def figlet_handler(Client, query: CallbackQuery):
