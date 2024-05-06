@@ -31,7 +31,7 @@ async def music(client: Client, message: Message):
 async def ihd(client: Client, message: Message):
     rl = random.randint(1,45)
     url = f"https://t.me/FGRUL_2/{rl}"
-    await client.send_photo(message.chat.id,url,caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 بنات](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ الصور ➧♥\n@YU_CQ - قناة السورس**",
+    await client.send_photo(message.chat.id,url,caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 صور](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ الصور ➧♥\n@YU_CQ - قناة السورس**",
     reply_markup=InlineKeyboardMarkup(
             [
                 [
