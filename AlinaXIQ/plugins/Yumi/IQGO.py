@@ -93,8 +93,3 @@ async def idjjdd(client, message:Message):
     await message.reply_text(f"**هذه هي سيرتك الذاتية\n│ \n└ʙʏ: {usr.bio}**")
 
 
-
-                ],
-            ]
-        ),
-    )
