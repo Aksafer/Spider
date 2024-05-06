@@ -14,7 +14,7 @@ import random
 )
 async def music(client: Client, message: Message):
     rl = random.randint(1, 29)
-    url = f"https://t.me/YU_CQ/{rl}"
+    url = f"https://t.me/FGRUL_3/{rl}"
     await client.send_voice(message.chat.id, url, caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 اغنيه](t.me/YU_CQ)**\n\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n**¦  اغانيي➧♥**\n**@YU_CQ - قناة السورس**",
     reply_markup=InlineKeyboardMarkup(
             [
@@ -27,11 +27,11 @@ async def music(client: Client, message: Message):
     )
     
 
-@app.on_message(command(["صور بنات","صور"]))
+@app.on_message(command(["صوره جامده","صوره"]))
 async def ihd(client: Client, message: Message):
     rl = random.randint(1,45)
-    url = f"https://t.me/YU_CQ/{rl}"
-    await client.send_photo(message.chat.id,url,caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 بنات](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ صور بنات➧♥\n@YU_CQ - قناة السورس**",
+    url = f"https://t.me/FGRUL_2/{rl}"
+    await client.send_photo(message.chat.id,url,caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 بنات](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ الصور ➧♥\n@YU_CQ - قناة السورس**",
     reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -47,7 +47,7 @@ async def ihd(client: Client, message: Message):
 )
 async def voice(client: Client, message: Message):
     rl = random.randint(1, 102)
-    url = f"https://t.me/YU_CQ/{rl}"
+    url = f"https://t.me/FGRUL_1/{rl}"
     await client.send_voice(message.chat.id, url, caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 قران](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ قران كريم➧♥️\n@YU_CQ - قناة السورس**",
     reply_markup=InlineKeyboardMarkup(
             [
@@ -64,7 +64,7 @@ async def voice(client: Client, message: Message):
 )
 async def video(client: Client, message: Message):
     rl = random.randint(5, 32)
-    u = await client.get_messages("YU_CQ",rl)
+    u = await client.get_messages("FGRUL_4",rl)
     if u.video:
      await client.send_video(message.chat.id, u.video.file_id, caption="**[⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - 🧑🏻‍💻🖤 فيديوهات](t.me/YU_CQ)**\n**••┉┉┉┉┉••🝢••┉┉┉┉┉••**\n\n**¦ @YU_CQ - قناة السورس ♥•**",
     reply_markup=InlineKeyboardMarkup(
@@ -91,5 +91,3 @@ async def idjjdd(client, message:Message):
       return
     usr = await client.get_chat(message.from_user.id)
     await message.reply_text(f"**هذه هي سيرتك الذاتية\n│ \n└ʙʏ: {usr.bio}**")
-
-
