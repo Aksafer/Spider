@@ -9,7 +9,7 @@ def figle(text):
     x = pyfiglet.FigletFont.getFonts()
     font = choice(x)
     figled = str(pyfiglet.figlet_format(text,font=font))
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="يحول", callback_data="figlet"),InlineKeyboardButton(text="تحت", callback_data="close_reply")]])
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text="يحول", callback_data="figlet"),InlineKeyboardButton(text="اغلاق", callback_data="close_reply")]])
     return figled, keyboard
 
 @app.on_message(filters.command("figlet"))
