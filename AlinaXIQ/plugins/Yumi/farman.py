@@ -14,44 +14,44 @@ from AlinaXIQ import app
 from random import  choice, randint
 
 @app.on_message(
-    command(["ف1"])
+    command(["/help"])
  )
 async def mmmezat(client, message):
-        await message.reply_text(f"""**⧉ 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - فەرمانی بۆت🧑🏻‍💻🖤**\n••┉┉┉┉┉┉••🝢••┉┉┉┉┉┉••\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی داخستن و کردنەوەی فەرمان {MUSIC_BOT_NAME}**\n\n
-** کردنەوەی + فەرمان 👾✅**
+        await message.reply_text(f"""⧉ 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 - أمرك🧑🏻 💻🖤\n••┉┉┉┉┉┉••🝢••┉┉┉┉┉┉••\n\nمرحبًا {message.from_user.mention} للقسم الختامي و افتح الأمر {MUSIC_BOT_NAME}\n\n
+ فتح + الأمر 👾✅
 
-** ئایدی | وێنە **
+ معرف | صورة
 
-** وەڵامدانەوە | ستیکەر **
+ الرد | ملصقات
 
-      **زکر**
+      ذكر
 
-⩹⊶⊷⌯⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 •⧉⊶⊷⋗
+⩹⊶⊷⌯⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 •⧉⊶⊷⋗
 
-** داخستنی + فەرمان 👾❎**
+ إغلاق + أمر 👾❎
 
-** ئایدی | وێنە **
+ معرف | صورة
 
-** وەڵامدانەوە | ستیکەر **
+ الرد | ملصقات
 
-      **زکر**
+      ذكر
 
-**نموونە : کردنەوەی ئایدی یان داخستنی ئایدی♥🧩**
+مثال: فتح هوية أو إغلاق هوية♥🧩
 
-**نموونە : کردنەوەی زکر یان داخستنی زکر♥🧩**
+مثال: فتح أو إغلاق الذكر♥🧩
 
-**@IQ7amo - 🖤👾باشترین بۆتی گۆرانی و پاراستن و وەڵامدانەوە**
-**""",
+@Y_D_ll - 🖤👾أفضل بوت أغنية وحماية واستجابة
+**"""،
 
 
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 ", url=f"https://t.me/MGIMT"),                        
+                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍 ", url=f"https://t.me/YU_CQ"),                        
                  ],[
                 InlineKeyboardButton(
-                        "پڕۆگرامساز⚡", url=f"https://t.me/IQ7amo"),
+                        "مبرمج⚡", url=f"https://t.me/Y_D_ll"),
                ],
           ]
         ),
