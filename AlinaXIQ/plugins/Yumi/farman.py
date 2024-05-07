@@ -41,7 +41,7 @@ async def mmmezat(client, message):
 مثال: فتح أو إغلاق الذكر♥🧩
 
 @Y_D_ll - 🖤👾أفضل بوت أغنية وحماية واستجابة
-**"""،
+**"""
 
 
         reply_markup=InlineKeyboardMarkup(
