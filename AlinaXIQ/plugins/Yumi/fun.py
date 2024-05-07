@@ -23,7 +23,6 @@ def call_random_member(client:Client, message:Message):
     random_member = random.choice(members)
     random_member_mention = f"[{random_member.user.first_name}](tg://user?id={random_member.user.id})"
     random_message = random.choice([
-         f"**-هذا لك ♥•\n│ بالنسبة إلى {random_member_mention}\nعليك المحاولة ثلاث مرات قبل أن تصاب بخيبة الأمل🖤•**"،
          f"**-هذا لك ♥•\n│ {random_member_mention}\nامنح كل يوم فرصة ليكون أفضل يوم في حياتك🖤•**"،
          f"**-هذه لك ♥•\n│ لـ {random_member_mention}\nالحكمة تعرف متى تتجاهل الأشخاص🖤•**"،
          f"**-هذه لك ♥•\n│ {random_member_mention}\nالهدوء مفتاح القفل القوي🖤•**"،
