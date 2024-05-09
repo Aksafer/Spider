@@ -54,15 +54,15 @@ def call_random_member(client:Client, message:Message):
     random_member = random.choice(members)
     random_member_mention = f"[{random_member.user.first_name}](tg://user?id={random_member.user.id})"
     random_message = random.choice([
-        f"**أنت أجمل منا{random_member_mention}🌚🖤•**"،
-        f"**جمالك لا يمكن وصفه بأي شكل من الأشكال{random_member_mention}⚡♥•**"،
-        f"**الحب في قلب الجميع{random_member_mention}🍭💞•**"،
-        f"**عزيزتي، تعالي وكليني{random_member_mention}😂♥•**"،
-        f"**المدينة انذهلت بجمالك{random_member_mention}🙊🥰•**"،
-        f"**ذكر_العضو_العشوائي}😂🤭•**"،
-        f"**إنه مثل الفيل{random_ member_mention} 😢😂•**"،
-         f"**أف هذا ما {random_member_mention}💘•**"،
-         f"**تناول بعض الكلمات لتكون ثقيلة{random_member_mention}🥰😂😂•**"،
-         f"**أنا قبيح جدًا {random_member_mention}😂😳•**"
+        f"**أنت أجمل منا{random_member_mention}🌚🖤•**",
+        f"**جمالك لا يوصف بأي حال من الأحوال لا يمكن القيام بذلك{random_member_mention}⚡♥•**",
+        f"**الحب في قلبه هەموواندا{random_member_mention}🍭💞•**",
+        f"**تقول يا عزيزي هياا بطخم{random_member_mention}😂♥•**",
+        f"**المدينة بجمالكۆ لقد تفاجأ{random_member_mention}🙊🥰•**",
+        f"**اجلس وكن غبيا{random_member_mention}😂🤭•**",
+        f"**أنت تقول فيلي{random_member_mention}😔😂•**",
+         f"**عفوًا، هذا ما يفعلونه{random_member_mention}💘•**",
+         f"**تناول بعض الكلامزي فليكن ثقيلاً بیت{random_member_mention}🥰😂😂•**",
+         f"**أنت قبيح جداً {random_member_mention}😂😳•**"
     ])
     client.send_message(chat_id, random_message, reply_to_message_id= message.id)
