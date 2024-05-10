@@ -12,7 +12,7 @@ from AlinaXIQ import app
 async def purge(app: app, msg: Message):
     
     if msg.chat.type != ChatType.SUPERGROUP:
-        await msg.reply_text(text="**ناتوانم نامەکان پاکبکەمەوە لە گرووپێکی بنەڕەتیدا گرووپێکی گشتی دروست بکە🖤•**")
+        await msg.reply_text(text="**لا أستطيع حذف الرسائل في مجموعة أساسية أنشئ مجموعة عامة🖤•**")
         return
 
     if msg.reply_to_message:
@@ -31,17 +31,17 @@ async def purge(app: app, msg: Message):
                 
             await msg.delete()
         except MessageDeleteForbidden:
-            await msg.reply_text(text="**من ناتوانم هەموو نامەکان بسڕمەوە، لەوانەیە نامەکان کۆن بن یان لەوانەیە مافی یان ڕۆڵی سڕینەوەم نەبێ یان گرووپێکی گشتی نەبێ‌🖤•**")
+            await msg.reply_text(text="**لا أستطيع حذف جميع الرسائل، قد تكون قديمة أو قد لا أملك الحق أو الدور في حذفها أو قد لا تكون مجموعة عامة 🖤•**")
             return
             
         except RPCError as ef:
-            await msg.reply_text(text=f"**هەندێك هەڵە هەیە, ڕیپۆرتی بکە بەبەکارهێنانی** `/bug`<b>هەڵە:</b> <code>{ef}</code>")
+            await msg.reply_text(text=f"**هناك بعض الأخطاء، الإبلاغ عنها باستخدامه** `/bug`<b>خطأ:</b> <code>{ef}</code>")
         count_del_msg = len(message_ids)
-        sumit = await msg.reply_text(text=f"**سڕدرایەوە <i>{count_del_msg}</i> نامە**")
+        sumit = await msg.reply_text(text=f"**تم حذفه <i>{count_del_msg}</i> خطاب**")
         await sleep(3)
         await sumit.delete()
         return
-    await msg.reply_text("**وەڵامی نامەیەك بدەوە بۆ دەستپێکردنی پاککردنەوە**")
+    await msg.reply_text("**قم بالرد على الرسالة لبدء التعبئة**")
     return
 
 
@@ -52,7 +52,7 @@ async def purge(app: app, msg: Message):
 async def spurge(app: app, msg: Message):
 
     if msg.chat.type != ChatType.SUPERGROUP:
-        await msg.reply_text(text="**ناتوانم نامەکان پاکبکەمەوە لە گرووپێکی بنەڕەتیدا گرووپێکی گشتی دروست بکە🖤•**")
+        await msg.reply_text(text="**لا أستطيع حذف الرسائل في مجموعة أساسية أنشئ مجموعة عامة🖤•**")
         return
 
     if msg.reply_to_message:
@@ -69,24 +69,24 @@ async def spurge(app: app, msg: Message):
                 await app.delete_messages(chat_id=msg.chat.id, message_ids=plist, revoke=True)
             await msg.delete()
         except MessageDeleteForbidden:
-            await msg.reply_text(text="**من ناتوانم هەموو نامەکان بسڕمەوە، لەوانەیە نامەکان کۆن بن یان لەوانەیە مافی یان ڕۆڵی سڕینەوەم نەبێ یان گرووپێکی گشتی نەبێ‌🖤•**")
+            await msg.reply_text(text="**لا أستطيع حذف جميع الرسائل، قد تكون قديمة أو قد لا أملك الحق أو الدور في حذفها أو قد لا تكون مجموعة عامة 🖤•**")
             return
             
         except RPCError as ef:
-            await msg.reply_text(text=f"**هەندێك هەڵە هەیە, ڕیپۆرتی بکە بەبەکارهێنانی** `/bug`<b>هەڵە:</b> <code>{ef}</code>")           
+            await msg.reply_text(text=f"**هناك بعض الأخطاء، الإبلاغ عنها باستخدامه** `/bug`<b>خطأ:</b> <code>{ef}</code>")           
             return        
-    await msg.reply_text("**وەڵامی نامەیەك بدەوە بۆ دەستپێکردنی پاککردنەوە**")
+    await msg.reply_text("**قم بالرد على الرسالة لبدء التعبئة**")
     return
 
 
 @app.on_message(filters.command("del") & admin_filter)
 async def del_msg(app: app, msg: Message):
     if msg.chat.type != ChatType.SUPERGROUP:
-        await msg.reply_text(text="**ناتوانم نامەکان پاکبکەمەوە لە گرووپێکی بنەڕەتیدا گرووپێکی گشتی دروست بکە🖤•**")
+        await msg.reply_text(text="**لا أستطيع حذف الرسائل في مجموعة أساسية أنشئ مجموعة عامة🖤•*")
         return        
     if msg.reply_to_message:
         await msg.delete()
         await app.delete_messages(chat_id=msg.chat.id, message_ids=msg.reply_to_message.id)
     else:
-        await msg.reply_text(text="**چی شتێکت دەوێت بۆ سڕینەوە🖤؟**")
+        await msg.reply_text(text="**ماذا تريد أن تحذف 🖤؟**")
         return
