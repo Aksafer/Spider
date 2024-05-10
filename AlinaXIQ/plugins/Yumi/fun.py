@@ -42,7 +42,7 @@ def call_random_member(client:Client, message:Message):
          f"**-هذه لك ♥•\n│ ل {random_member_mention}\nلم يكن لديك شيء جيد لتقوله، لذا اصمت 🖤•**"
     ])
     client.send_message(chat_id, random_message, reply_to_message_id= message.id)
-@app.on_message(command(['وصف','و']))
+@app.on_message(command(['نداء','ن']))
 def call_random_member(client:Client, message:Message):
     chat_id = message.chat.id
     members = [
