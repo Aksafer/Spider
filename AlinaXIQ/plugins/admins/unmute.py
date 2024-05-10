@@ -4,7 +4,7 @@ from AlinaXIQ.misc import SUDOERS
 from pyrogram.types import ChatPermissions 
 from AlinaXIQ.utils.alina_ban import admin_filter
 
-@app.on_message(filters.command(["unmuteall","لادانی میوتکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
+@app.on_message(filters.command(["unmuteall"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unmute_all(_,msg):
     chat_id=msg.chat.id   
     user_id=msg.from_user.id
@@ -17,10 +17,10 @@ async def unmute_all(_,msg):
             banned_users.append(m.user.id)       
             try:
                     await app.restrict_chat_member(chat_id,banned_users[x], ChatPermissions(can_send_messages=True,can_send_media_messages=True,can_send_polls=True,can_add_web_page_previews=True,can_invite_users=True))
-                    print(f"**لادانی ئاگاداری (میوت) لەسەر هەموو ئەندامەکان {m.user.mention} 🖤•**")
+                    print(f"**إزالة كتم الصوت على جميع الأعضاء {m.user.mention} 🖤•**")
                     x += 1
                                         
             except Exception as e:
                 print(e)
     else:
-        await msg.reply_text("**من مافی ئەوەم نییە بەکارهێنەران سنووردار بکەم یان تۆ لە گەشەپێدەران نیت🖤•**")
+        await msg.reply_text("**ليس لدي الحق في تقييد المستخدمين أو أنك لست مطوراً🖤•**")
