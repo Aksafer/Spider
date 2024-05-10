@@ -11,7 +11,7 @@ from pyrogram.enums import ParseMode, ChatMemberStatus
 
 
 iddof = []
-@app.on_message(command(['خطاب']))
+@app.on_message(command(['نصيحه']))
 def call_random_member(client:Client, message:Message):
     chat_id = message.chat.id
     members = [
