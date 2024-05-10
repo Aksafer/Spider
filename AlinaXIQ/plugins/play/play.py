@@ -39,7 +39,6 @@ from AlinaXIQ.utils.extraction import extract_user
 @app.on_message(
      command(
         [
-        [
             "شغل",
             "تشغيل",
             "فيديو",
@@ -358,14 +357,7 @@ async def play_commnd(
                     text=_["play_17"],
                 )
             except Exception as e:
-                if "phone.CreateGroupCall" in str(e):
-                    await mystic.edit_text(_["black_9"])
-                    return await app.send_message(
-                        chat_id=config.LOGGER_ID,
-                        text=_["play_17"],
-                    )
-                else:    
-                    print(e)
+                print(e)
                 return await mystic.edit_text(_["general_2"].format(type(e).__name__))
             await mystic.edit_text(_["str_2"])
             try:
@@ -890,7 +882,7 @@ async def stream(
             button = aq_markup(_, chat_id)
             await app.send_photo(
                 chat_id=original_chat_id,
-                photo=img,
+                photo=qimg,
                 caption=_["queue_4"].format(position, title[:18], duration_min, user_mention),
                 reply_markup=InlineKeyboardMarkup(button),
             )
