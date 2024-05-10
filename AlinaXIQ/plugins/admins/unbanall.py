@@ -5,7 +5,7 @@ from AlinaXIQ.utils.alina_ban import admin_filter
 
 BOT_ID = "6423099772"
 
-@app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان","لادانی باندکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
+@app.on_message(filters.command(["unbanll"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unban_all(_, msg):
     chat_id = msg.chat.id
     x = 0
@@ -17,12 +17,12 @@ async def unban_all(_, msg):
             banned_users.append(m.user.id)
             try:
                 await app.unban_chat_member(chat_id, banned_users[x])
-                print(f"**لادانی دەرکردن (باند) لەسەر هەموو ئەندامەکان {m.user.mention} 🖤•**")
+                print(f"**استبعاد طرد (حظر) على جميع الأعضاء {m.user.mention} 🖤•**")
                 x += 1
             except Exception:
                 pass
     else:
-        await msg.reply_text("**من مافی ئەوەم نییە بەکارهێنەران سنووردار بکەم یان تۆ لە گەشەپێدەران نیت🖤•**")
+        await msg.reply_text("**ليس لدي الحق في تقييد المستخدمين أو أنك لست مطوراً🖤•**")
 
 @app.on_callback_query(filters.regex("^stop$"))
 async def stop_callback(_, query):
