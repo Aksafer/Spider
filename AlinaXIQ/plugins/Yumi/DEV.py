@@ -111,7 +111,7 @@ async def yas(client, message):
                         name, url=f"https://t.me/{usr.username}")
                 ],  [
                     InlineKeyboardButton(
-                        "🝢 يتواصل 🝢", url=f"https://t.me/{usr.username}"),                        
+                        "🝢 للتوصل 🝢", url=f"https://t.me/{usr.username}"),                        
                  ],
             ]
         ),
