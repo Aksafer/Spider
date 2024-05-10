@@ -141,9 +141,9 @@ async def unban_assistant(_, callback: CallbackQuery):
     
     try:
         await app.unban_chat_member(chat_id, userbot.id)
-        await callback.answer("⇜ بە سەرکەوتوویی باندی ئەکاونتی یاریدەدەر لادرا♥\n\n⇜ ئێستا دەتوانی گۆرانی لێ بدەیت🎻\n\n⇜ لێدانی گۆرانی : /play + ناوی گۆرانی ⎋", show_alert=True)
+        await callback.answer("⇜ تمت إزالة فرقة حساب المساعد بنجاح♥\n\n⇜ الآن يمكنك الغناء🎻\n\n⇜ تشغيل الأغنية : /play + اسم الاغنية ⎋", show_alert=True)
     except Exception as e:
-        await callback.answer(f"⇜ شکستی هێنا لە لادانی باندی ئەکاونتی یاریدەدەر ڕۆڵم نییە\n\n⇜ ڕۆڵم پێبدە بۆ لادانی باندی ئەکاونتی یاریدەدەر ⎋", show_alert=True)
+        await callback.answer(f"⇜ فشل في تحويل حساب المساعد بدون نطاق الدور\n\n⇜ أعطني دورًا لتشتيت نطاق الحساب الفرعي ⎋", show_alert=True)
         
 
 checker = {}
@@ -347,7 +347,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if command == "Skip":
-            txt = f"<b>●꒐ پەخشکردن تێپەڕێندرا♥•\n●꒐ لەلایەن : {mention} ⎋</b>"
+            txt = f"<b>●꒐ تم تخطي البث ♥•\n●꒐ بواسطة : {mention} ⎋</b>"
             popped = None
             try:
                 popped = check.pop(0)
@@ -355,7 +355,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"<b>●꒐ پەخشکردن تێپەڕێندرا♥•\n●꒐ لەلایەن : {mention} ⎋</b>"
+                        f"<b>●꒐ تم تخطي البث ♥•\n●꒐ بواسطة : {mention} ⎋</b>"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -370,7 +370,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"<b>●꒐ پەخشکردن تێپەڕێندرا♥•\n●꒐ لەلایەن : {mention} ⎋</b>"
+                        f"<b>●꒐ تم تخطي البث ♥•\n●꒐ بواسطة : {mention} ⎋</b>"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -382,7 +382,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"<b>●꒐ پەخشکردن دووبارەکرایەوە ♥•\n●꒐ لەلایەن : {mention} ⎋</b>"
+            txt = f"<b>●꒐ تم تخطي البث ♥•\n●꒐ بواسطة : {mention} ⎋</b>"
         await CallbackQuery.answer()
         queued = check[0]["file"]
         title = (check[0]["title"]).title()
@@ -562,7 +562,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             if (duration_played - duration_to_skip) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"<b>» بۆت ناتوانێت گۆرانی بباتە پێش چونکە ماوەی پەخشکردن تێپەڕیوە\n\nپەخشدەکرێت : {bet} لە خولەکی {duration} ⎋</b>",
+                    f"<b>» لا يستطيع البوت الاستمرار في الأغنية لأن فترة التشغيل قد انقضت\n\nسيتم بثه : {bet} في الدقيقة {duration} ⎋</b>",
                     show_alert=True,
                 )
             to_seek = duration_played - duration_to_skip + 1
@@ -573,7 +573,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             ) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"<b>» بۆت ناتوانێت گۆرانی بباتە پێش چونکە ماوەی پەخشکردن تێپەڕیوە\n\nپەخشدەکرێت : {bet} لە خولەکی {duration} ⎋</b>",
+                    f"<b>» لا يستطيع البوت الاستمرار في الأغنية لأن فترة التشغيل قد انقضت\n\nسيتم بثه : {bet} في الدقيقة {duration} ⎋</b>",
                     show_alert=True,
                 )
             to_seek = duration_played + duration_to_skip + 1
