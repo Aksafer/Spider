@@ -2,7 +2,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from AlinaXIQ import app
-from AlinaXIQ.core.call import Omar
+from AlinaXIQ.core.call import Alina
 from AlinaXIQ.utils.database import is_music_playing, music_off
 from AlinaXIQ.utils.decorators import AdminRightsCheck
 from AlinaXIQ.utils.inline import close_markup
