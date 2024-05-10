@@ -39,28 +39,18 @@ from AlinaXIQ.utils.extraction import extract_user
 @app.on_message(
      command(
         [
-            "play",
-            "vplay",
-            "cplay",
-            "cvplay",
-            "playforce",
-            "vplayforce",
-            "cplayforce",
-            "cvplayforce",
+        [
+            "شغل",
+            "تشغيل",
+            "فيديو",
             "/play",
-            "/vplay", 
-            "cplay", 
-            "g", 
-            "پلەی", 
-            "video",
-            "پ کەناڵ",
-            "gorani",
-            "ڤیدیو",
-            "پ ئەلینا",
-            "سوڕەتی",
-            "سورەتی",
-            "سورەت",
-            "سوڕەت",
+            "/vplay",
+            "/cplay",
+            "/cvplay",
+            "/playforce",
+            "/vplayforce",
+            "/cplayforce",
+            "/cvplayforce",
         ]
     )
     & ~filters.private
