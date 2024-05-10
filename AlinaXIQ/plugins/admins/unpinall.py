@@ -27,10 +27,10 @@ async def unpin_callbacc(client, CallbackQuery):
         if member.privileges.can_pin_messages:
             pass
         else:
-            await CallbackQuery.answer("**تۆ مافت نییە، بەڕێزم🖤•**", show_alert=True)
+            await CallbackQuery.answer("**ليس من حقك يا عزيزي 🖤•**", show_alert=True)
             return
     else:
-        await CallbackQuery.answer("**تۆ مافت نییە، بەڕێزم🖤•**", show_alert=True)
+        await CallbackQuery.answer("**ليس من حقك يا عزيزي 🖤•**", show_alert=True)
         return
     
     msg_id = CallbackQuery.data.split("=")[1]
@@ -39,15 +39,15 @@ async def unpin_callbacc(client, CallbackQuery):
     except:
         if msg_id == "yes":
             await client.unpin_all_chat_messages(chat_id)
-            textt = "**هەموو نامە هەڵواسراوەکان، پینکراوەکانم لادا🖤•**"
+            textt = "**لقد قمت بحذف جميع الرسائل المعلقة والمثبتة 🖤•**"
         else:
-            textt = "**باشە، من هەموو نامەکان هەڵناواسمەوە، پین ناکەمەوە‌🖤•**"
+            textt = "**حسنًا، أنا لا أعلق كل الرسائل، ولا أعلقها 🖤•**"
 
         await CallbackQuery.message.edit_caption(
             textt,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton(text="سڕینەوەی چات", callback_data="close")]
+                    [InlineKeyboardButton(text="حذف الدردشة", callback_data="close")]
                 ]
             )
         )
@@ -58,7 +58,7 @@ async def unpin_callbacc(client, CallbackQuery):
         "unpinned!!", 
         reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton(text="سڕینەوەی چات", callback_data="close")]
+                [InlineKeyboardButton(text="حذف الدردشة", callback_data="close")]
             ]
         )
     )
@@ -75,21 +75,21 @@ async def unpin_command_handler(client, message):
         if member.privileges.can_pin_messages:
             pass
         else:
-            msg_text = "**تۆ ڕۆڵت نییە بۆ لادانی پینی نامەکان🖤•**"
+            msg_text = "**ليس لك دور في إزالة دبابيس الرسائل 🖤•**"
             return await message.reply_text(msg_text)
     else:
-        msg_text = "**تۆ ڕۆڵت نییە بۆ لادانی پینی نامەکان🖤•**"
+        msg_text = "**ليس لك دور في إزالة دبابيس الرسائل 🖤•**"
         return await message.reply_text(msg_text)
     
     await message.reply_text(
-        "**ئایە تۆ دڵنیایت؟ تۆ دەتەوێت هەموو نامە هەڵواسراوەکان لابدەیت؟🖤•**",
+        "**هل أنت متأكد؟ هل تريد إزالة جميع الرسائل المعلقة؟🖤•**",
         reply_markup=InlineKeyboardMarkup(
             [   
                 [
-                    InlineKeyboardButton(text="بەڵێ", callback_data="unpinall=yes"),
+                    InlineKeyboardButton(text="نعم", callback_data="unpinall=yes"),
                 ],
                 [
-                    InlineKeyboardButton(text="نەخێر", callback_data="unpinall=no")
+                    InlineKeyboardButton(text="لا", callback_data="unpinall=no")
                 ]
             ]
         )
