@@ -11,7 +11,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyb
 
 @app.on_message(filters.regex("^/start"), group=39)
 async def cpanel(_, message: Message):             
-        text = "🧑🏻‍✈️︙اهلا بك بك عزيزي العضو ♥️\n\n اليـكـ كيب الاعضاء الخاص بسورس اليكس"
+        text = "🧑🏻‍✈️︙اهلا بك بك عزيزي العضو ♥️\n\n اليـكـ كـيب الاعـضاء الـخاص بــ سورس ايـرور"
         kep = ReplyKeyboardMarkup([
 [" مبرمج السورس ", "مطور السورس"],
 ["السورس","يـوتيوب "],
@@ -52,7 +52,7 @@ def reply_to_HEY(Client, message):
         reply_markup=InlineKeyboardMarkup(
             [
             [
-                InlineKeyboardButton("n᥉᥆ᥙᖇᥴᥱ ᥲᥣᥱꪎ", url=f"https://t.me/YU_CQ"),
+                InlineKeyboardButton("𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
             ]
          ]
      )
