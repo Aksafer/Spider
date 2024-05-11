@@ -30,3 +30,16 @@ async def ihd(client: Client, message: Message):
             ]
         )
 
+@app.on_message(filters.command(["فيلم", "افلام"], ""))
+async def ihd(client: Client, message: Message):
+    rl = random.randint(2,34)
+    url = f"https://t.me/gyigkk/{rl}"
+    await client.send_audio(message.chat.id,url,caption="💙 ¦ تـم اختيـار فلم لـك",parse_mode=enums.ParseMode.HTML)
+    reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        message.from_user.first_name, url=f"https://t.me/{message.from_user.username}")
+                ],
+            ]
+        )
