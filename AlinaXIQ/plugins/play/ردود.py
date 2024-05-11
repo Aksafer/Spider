@@ -26,7 +26,7 @@ async def almortagel(client, message):
        await message.reply_text(f"القمر ده شبهك 🙂❤️")
    elif message.text == "نعم":
        await message.reply_text(f" نعم الله عليك 🌚❤️")
-   elif message.text == "."
+   elif message.text == ".":
        await message.reply_text(f"صلي علي النبي وتبسم ✨♥")
    elif message.text == "سلام":
        await message.reply_text(f" مع الف سلامه يقلبي متجيش تاني 😹💔🎶")
