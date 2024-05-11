@@ -1,4 +1,3 @@
-import os
 import random
 import string
 import asyncio
@@ -33,31 +32,37 @@ from AlinaXIQ.utils.database import (
 from AlinaXIQ.utils.logger import play_logs
 from config import BANNED_USERS, lyrical
 from time import time
-from strings.filters import command 
 from AlinaXIQ.utils.extraction import extract_user
+from strings.filters import command 
+
 
 @app.on_message(
      command(
         [
-            "شغل",
-            "تشغيل",
-            "فيديو",
+            "play",
+            "vplay",
+            "cplay",
+            "cvplay",
+            "playforce",
+            "vplayforce",
+            "cplayforce",
+            "cvplayforce",
             "/play",
-            "/vplay",
-            "/cplay",
-            "/cvplay",
-            "/playforce",
-            "/vplayforce",
-            "/cplayforce",
-            "/cvplayforce",
+            "/vplay", 
+            "cplay", 
+            "g", 
+            
+            "video",
+            "تشغيل",
+            "ڤیدیو",
+            "فيديو",
+            "شغل",
         ]
     )
     & ~filters.private
     & ~BANNED_USERS
 )
 @PlayWrapper
-# ... (existing code)
-
 async def play_commnd(
     client,
     message: Message,
@@ -185,8 +190,7 @@ async def play_commnd(
                     )
                 except Exception as e:
                     print(e)
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "yt"
                 if "&" in url:
@@ -219,16 +223,14 @@ async def play_commnd(
                     await mystic.edit_text("All videos from the channel have been added to the queue.")
                 except Exception as e:
                     print(e)  # Handle or log the error appropriately
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    await mystic.edit_text(_["play_3"])  # Error message for the user
                 
             else:
                 try:
                     details, track_id = await YouTube.track(url)
                 except Exception as e:
                     print(e)
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_11"].format(
@@ -245,8 +247,7 @@ async def play_commnd(
                 try:
                     details, track_id = await Spotify.track(url)
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_10"].format(details["title"], details["duration_min"])
@@ -254,8 +255,7 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.playlist(url)
                 except Exception:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spplay"
                 img = config.SPOTIFY_PLAYLIST_IMG_URL
@@ -264,8 +264,7 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.album(url)
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spalbum"
                 img = config.SPOTIFY_ALBUM_IMG_URL
@@ -274,8 +273,7 @@ async def play_commnd(
                 try:
                     details, plist_id = await Spotify.artist(url)
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "spartist"
                 img = config.SPOTIFY_ARTIST_IMG_URL
@@ -287,8 +285,7 @@ async def play_commnd(
                 try:
                     details, track_id = await Apple.track(url)
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
                 cap = _["play_10"].format(details["title"], details["duration_min"])
@@ -297,21 +294,18 @@ async def play_commnd(
                 try:
                     details, plist_id = await Apple.playlist(url)
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "apple"
                 cap = _["play_12"].format(app.mention, message.from_user.mention)
                 img = url
             else:
-                
-                os.system(f"kill -9 {os.getpid()} && bash start")
+                return await mystic.edit_text(_["play_3"])
         elif await Resso.valid(url):
             try:
                 details, track_id = await Resso.track(url)
             except:
-                
-                os.system(f"kill -9 {os.getpid()} && bash start")
+                return await mystic.edit_text(_["play_3"])
             streamtype = "youtube"
             img = details["thumb"]
             cap = _["play_10"].format(details["title"], details["duration_min"])
@@ -319,8 +313,7 @@ async def play_commnd(
             try:
                 details, track_path = await SoundCloud.download(url)
             except:
-                
-                os.system(f"kill -9 {os.getpid()} && bash start")
+                return await mystic.edit_text(_["play_3"])
             duration_sec = details["duration_sec"]
             if duration_sec > config.DURATION_LIMIT:
                 return await mystic.edit_text(
@@ -393,8 +386,7 @@ async def play_commnd(
         try:
             details, track_id = await YouTube.track(query)
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
         streamtype = "youtube"
     if str(playmode) == "Direct":
         if not plist_type:
@@ -524,8 +516,7 @@ async def play_music(client, CallbackQuery, _):
     try:
         details, track_id = await YouTube.track(vidid, True)
     except:
-        
-        os.system(f"kill -9 {os.getpid()} && bash start")
+        return await mystic.edit_text(_["play_3"])
     if details["duration_min"]:
         duration_sec = time_to_seconds(details["duration_min"])
         if duration_sec > config.DURATION_LIMIT:
@@ -569,7 +560,7 @@ async def play_music(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("AlinamousAdmin") & ~BANNED_USERS)
-async def Alinamous_check(client, CallbackQuery):
+async def VIPmous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
             "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
@@ -624,32 +615,27 @@ async def play_playlists_command(client, CallbackQuery, _):
                 True,
             )
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
     if ptype == "spplay":
         try:
             result, spotify_id = await Spotify.playlist(videoid)
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
     if ptype == "spalbum":
         try:
             result, spotify_id = await Spotify.album(videoid)
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
     if ptype == "spartist":
         try:
             result, spotify_id = await Spotify.artist(videoid)
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
     if ptype == "apple":
         try:
             result, apple_id = await Apple.playlist(videoid, True)
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            return await mystic.edit_text(_["play_3"])
     try:
         await stream(
             _,
@@ -731,9 +717,7 @@ from AlinaXIQ.utils.exceptions import AssistantErr
 from AlinaXIQ.utils.inline import aq_markup, queuemarkup, close_markup, stream_markup, stream_markup2, panel_markup_4
 from AlinaXIQ.utils.pastebin import AlinaBin
 from AlinaXIQ.utils.stream.queue import put_queue, put_queue_index
-from youtubesearchpython.__future__ import VideosSearch
 from AlinaXIQ.utils.thumbnails import get_thumb
-
 
 
 async def stream(
@@ -798,8 +782,7 @@ async def stream(
                         vidid, mystic, video=status, videoid=True
                     )
                 except:
-                    
-                    os.system(f"kill -9 {os.getpid()} && bash start")
+                    raise AssistantErr(_["play_14"])
                 await Alina.join_call(
                     chat_id,
                     original_chat_id,
@@ -863,8 +846,7 @@ async def stream(
                 vidid, mystic, videoid=True, video=status
             )
         except:
-            
-            os.system(f"kill -9 {os.getpid()} && bash start")
+            raise AssistantErr(_["play_14"])
         if await is_active_chat(chat_id):
             await put_queue(
                 chat_id,
@@ -882,7 +864,7 @@ async def stream(
             button = aq_markup(_, chat_id)
             await app.send_photo(
                 chat_id=original_chat_id,
-                photo=qimg,
+                photo=img,
                 caption=_["queue_4"].format(position, title[:18], duration_min, user_mention),
                 reply_markup=InlineKeyboardMarkup(button),
             )
@@ -1006,7 +988,7 @@ async def stream(
                 file_path,
                 title,
                 duration_min,
-                user_name,
+                user_mention,
                 streamtype,
                 user_id,
                 "video" if video else "audio",
@@ -1100,7 +1082,7 @@ async def stream(
                 "index_url",
                 title,
                 duration_min,
-                user_name,
+                user_mention,
                 link,
                 "video" if video else "audio",
             )
