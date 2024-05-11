@@ -12,7 +12,7 @@ from pyrogram.types import Message, InputTextMessageContent
 from youtube_search import YoutubeSearch
 
 from AlinaXIQ import app
-from AlinaXIQ.plugins.play import command
+from AlinaXIQ import command
 
 def remove_if_exists(path):
     if os.path.exists(path):
