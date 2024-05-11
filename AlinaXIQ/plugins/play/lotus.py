@@ -85,3 +85,9 @@ async def almortagel(client: Client, message: Message):
     url = f"https://t.me/yoipopl/{rl}"
     await client.send_audio(message.chat.id,url,caption="💚 ¦ تـم اختيـار استوري لـك")
 
+@app.on_message(filters.command(["غنيلي", "غني", "غنيي"], ""))
+async def almortagel(client: Client, message: Message):
+    rl = random.randint(2,90)
+    url = f"https://t.me/gukygn/{rl}"
+    await client.send_photo(message.chat.id,url,caption="💙 ¦ تـم اختيـار الاغـنـية لـك")
+
