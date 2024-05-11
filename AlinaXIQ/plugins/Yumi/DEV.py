@@ -19,7 +19,7 @@ from pyrogram.enums import ParseMode, ChatMemberStatus
 
                 
 @app.on_message(
-    command(["/source", "سورس"])
+    command(["/source", "سورس" ,"السورس"])
 )
 async def huhh(client: Client, message: Message):
     await message.reply_photo(
