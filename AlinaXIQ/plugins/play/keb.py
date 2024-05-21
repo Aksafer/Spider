@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from random import choice
 from pyrogram import filters
 from config import BANNED_USERS
-from AlinaXIQ import (Apple, Resso, Spotify, Telegram, YouTube, app)
+from AdRenalen import (Apple, Resso, Spotify, Telegram, YouTube, app)
 from typing import Union
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, Message, ChatJoinRequest
@@ -53,7 +53,7 @@ def reply_to_HEY(Client, message):
         reply_markup=InlineKeyboardMarkup(
             [
             [
-                InlineKeyboardButton("𝙎𝙊𝙐𝙍𝘾𝙀 𝙀𝙍𝙊𝙍", url=f"https://t.me/YU_CQ"),
+                InlineKeyboardButton("𝐒𝐎𝐔𝐑𝐂𝐄 𝐄𝐑𝐎𝐑", url=f"https://t.me/SOURCE_EROR"),
             ]
          ]
      )
